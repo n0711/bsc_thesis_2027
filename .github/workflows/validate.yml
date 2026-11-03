@@ -9,22 +9,49 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.13'
       - run: python -m unittest discover -s tests -v
       - run: python src/experiment.py
       - run: python src/make_tables.py
       - run: python src/paired_analysis.py
       - name: Check reproducible generated evidence
-        run: git diff --exit-code -- results/ tex/generated_results.tex tex/plot_data.tsv tex/paired_results.tex
+        shell: bash
+        run: |
+          git diff -- results/ tex/generated_results.tex tex/plot_data.tsv tex/paired_results.tex > verification_diff.txt
+          if [ -s verification_diff.txt ]; then
+            cat verification_diff.txt
+            exit 1
+          fi
+      - name: Save evidence diff for diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-diff-log
+          path: verification_diff.txt
+          if-no-files-found: ignore
   latex:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install XeLaTeX and necessary packages
-        run: sudo apt-get update && sudo apt-get install -y texlive-xetex texlive-latex-extra texlive-pictures tex-gyre
+        run: sudo apt-get update && sudo apt-get install -y texlive-xetex texlive-latex-extra texlive-pictures texlive-fonts-recommended tex-gyre fonts-dejavu-core
       - name: Build dissertation
-        run: cd tex && xelatex -halt-on-error -interaction=nonstopmode thesis.tex && xelatex -halt-on-error -interaction=nonstopmode thesis.tex
-      - uses: actions/upload-artifact@v4
+        shell: bash
+        run: |
+          set -o pipefail
+          cd tex
+          xelatex -file-line-error -halt-on-error -interaction=nonstopmode thesis.tex 2>&1 | tee latex_ci.log
+          xelatex -file-line-error -halt-on-error -interaction=nonstopmode thesis.tex 2>&1 | tee -a latex_ci.log
+      - name: Save XeLaTeX diagnostic log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xelatex-build-log
+          path: tex/latex_ci.log
+          if-no-files-found: ignore
+      - name: Save dissertation draft PDF
+        if: success()
+        uses: actions/upload-artifact@v4
         with:
           name: bsc-thesis-draft-pdf
           path: tex/thesis.pdf
