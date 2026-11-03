@@ -6,7 +6,7 @@ This project extends the author's **submitted October 2026 theoretical article**
 
 ## What is completed
 
-- XeLaTeX A4 dissertation draft (9 chapters, two appendices, references, evidence register).
+- XeLaTeX A4 dissertation draft (10 chapters, two appendices, references, evidence register).
 - Exact finite-space optimization (6-symbol alphabet, prompt lengths 2/3/4).
 - Equal-budget comparison: random search and restarting first-improvement coordinate search, 12/24/36/72 score evaluations, 50 seeds each.
 - 1,200 synthetic observations, JSON/CSV evidence, exact random-search hit probabilities and expected best-score formula.

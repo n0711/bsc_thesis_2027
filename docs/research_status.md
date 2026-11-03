@@ -8,7 +8,7 @@
 | Exact oracle for lengths 2, 3, 4 | Completed locally | 36, 216, 1296 candidates, `results/summary.json` |
 | Matched-budget random vs coordinate | Completed locally | 12 configurations, 50 seeds x 2 methods = 1,200 rows |
 | Unit tests | 17 passed locally | Python 3.13, CI still needs post-push verification |
-| XeLaTeX compilation | Completed locally | 28-page working draft, A4, PDF and source in local downloadable package |
+| XeLaTeX compilation | Completed locally | 33-page working draft, A4, PDF and source in local downloadable package |
 | Real-model held-out study | NOT DONE | Requires model access, dataset selection and approved plan |
 | Human preference validation | NOT DONE | Not necessary for current synthetic milestone |
 | Institutional final submission | NOT DONE | Academic supervisor: Dr. Stephania Loizidou, review and department approval pending, verified references/format |
