@@ -1,0 +1,174 @@
+{
+  "evidence_type": "synthetic_surrogate_not_LLM",
+  "caution": "Exploratory paired-seed comparisons; 12 configurations; p-values unadjusted for multiple comparisons; seeds are algorithmic replicates, not independent tasks.",
+  "configurations": [
+    {
+      "length": 2,
+      "budget": 12,
+      "pairs": 50,
+      "mean_coordinate_minus_random": 0.005115981179495022,
+      "paired_bootstrap_95pct": [
+        0.0018758718849741273,
+        0.009474677207737934
+      ],
+      "wins": 33,
+      "losses": 8,
+      "ties": 9,
+      "two_sided_sign_p_unadjusted": 0.00011222142620681552
+    },
+    {
+      "length": 2,
+      "budget": 24,
+      "pairs": 50,
+      "mean_coordinate_minus_random": 0.0013416193838733804,
+      "paired_bootstrap_95pct": [
+        0.0007693745841709166,
+        0.001989639906628504
+      ],
+      "wins": 27,
+      "losses": 1,
+      "ties": 22,
+      "two_sided_sign_p_unadjusted": 2.1606683731079102e-07
+    },
+    {
+      "length": 2,
+      "budget": 36,
+      "pairs": 50,
+      "mean_coordinate_minus_random": 0.0008146081562702823,
+      "paired_bootstrap_95pct": [
+        0.0005682110574037314,
+        0.0010570556865593316
+      ],
+      "wins": 23,
+      "losses": 0,
+      "ties": 27,
+      "two_sided_sign_p_unadjusted": 2.384185791015625e-07
+    },
+    {
+      "length": 2,
+      "budget": 72,
+      "pairs": 50,
+      "mean_coordinate_minus_random": 0.000372525614931003,
+      "paired_bootstrap_95pct": [
+        0.00020104147982918263,
+        0.0005775166633376871
+      ],
+      "wins": 11,
+      "losses": 0,
+      "ties": 39,
+      "two_sided_sign_p_unadjusted": 0.0009765625
+    },
+    {
+      "length": 3,
+      "budget": 12,
+      "pairs": 50,
+      "mean_coordinate_minus_random": 0.0053621828179499145,
+      "paired_bootstrap_95pct": [
+        -0.0012061252356275665,
+        0.01196577304906571
+      ],
+      "wins": 31,
+      "losses": 16,
+      "ties": 3,
+      "two_sided_sign_p_unadjusted": 0.03998605682605216
+    },
+    {
+      "length": 3,
+      "budget": 24,
+      "pairs": 50,
+      "mean_coordinate_minus_random": 0.0035040352914240346,
+      "paired_bootstrap_95pct": [
+        0.0011046646461576005,
+        0.006541181780640531
+      ],
+      "wins": 40,
+      "losses": 6,
+      "ties": 4,
+      "two_sided_sign_p_unadjusted": 3.1028037028590916e-07
+    },
+    {
+      "length": 3,
+      "budget": 36,
+      "pairs": 50,
+      "mean_coordinate_minus_random": 0.0012561180781217728,
+      "paired_bootstrap_95pct": [
+        0.0009162752964508547,
+        0.0016347719172626562
+      ],
+      "wins": 42,
+      "losses": 5,
+      "ties": 3,
+      "two_sided_sign_p_unadjusted": 2.4579776436439715e-08
+    },
+    {
+      "length": 3,
+      "budget": 72,
+      "pairs": 50,
+      "mean_coordinate_minus_random": 0.0009019534563913734,
+      "paired_bootstrap_95pct": [
+        0.0006812680820098804,
+        0.0011515298170299637
+      ],
+      "wins": 37,
+      "losses": 1,
+      "ties": 12,
+      "two_sided_sign_p_unadjusted": 2.837623469531536e-10
+    },
+    {
+      "length": 4,
+      "budget": 12,
+      "pairs": 50,
+      "mean_coordinate_minus_random": 0.015282083779917171,
+      "paired_bootstrap_95pct": [
+        0.008130200154861003,
+        0.022107310664017124
+      ],
+      "wins": 39,
+      "losses": 11,
+      "ties": 0,
+      "two_sided_sign_p_unadjusted": 9.021490107130603e-05
+    },
+    {
+      "length": 4,
+      "budget": 24,
+      "pairs": 50,
+      "mean_coordinate_minus_random": 0.009933419251902798,
+      "paired_bootstrap_95pct": [
+        0.006426504488663214,
+        0.013757900720994351
+      ],
+      "wins": 46,
+      "losses": 4,
+      "ties": 0,
+      "two_sided_sign_p_unadjusted": 4.461782054931973e-10
+    },
+    {
+      "length": 4,
+      "budget": 36,
+      "pairs": 50,
+      "mean_coordinate_minus_random": 0.004675766153405219,
+      "paired_bootstrap_95pct": [
+        0.0024991128892356508,
+        0.007372796769358802
+      ],
+      "wins": 41,
+      "losses": 9,
+      "ties": 0,
+      "two_sided_sign_p_unadjusted": 5.614100093254137e-06
+    },
+    {
+      "length": 4,
+      "budget": 72,
+      "pairs": 50,
+      "mean_coordinate_minus_random": 0.0017944586021078801,
+      "paired_bootstrap_95pct": [
+        0.0008754734751029902,
+        0.0031952437300258206
+      ],
+      "wins": 44,
+      "losses": 2,
+      "ties": 4,
+      "two_sided_sign_p_unadjusted": 3.0752289603697136e-11
+    }
+  ]
+}

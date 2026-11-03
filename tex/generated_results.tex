@@ -1,0 +1,29 @@
+\begin{table}[htbp]
+\centering\small
+\caption{Equal-budget synthetic search results for $m=3$ over 50 seeds. Scores are surrogate probabilities, not LLM accuracy.}
+\label{tab:main_results}
+\begin{tabular}{rrrrrr}
+\toprule
+$B$ & Exact oracle & Random mean & Coordinate mean & Random hits & Coordinate hits \\
+\midrule
+12 & 0.747292 & 0.736115 & 0.741477 & 2/50 & 10/50 \\
+24 & 0.747292 & 0.743156 & 0.746660 & 2/50 & 25/50 \\
+36 & 0.747292 & 0.745721 & 0.746977 & 3/50 & 36/50 \\
+72 & 0.747292 & 0.746332 & 0.747234 & 13/50 & 47/50 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering\small
+\caption{Length dependence at 36 score calls. Each entry reports the mean training regret over 50 seeds.}
+\label{tab:length}
+\begin{tabular}{rrrrr}
+\toprule
+$m$ & $6^m$ & Oracle score & Random regret & Coordinate regret \\
+\midrule
+2 & 36 & 0.740195 & 0.000815 & 0.000000 \\
+3 & 216 & 0.747292 & 0.001571 & 0.000315 \\
+4 & 1296 & 0.753996 & 0.005403 & 0.000727 \\
+\bottomrule
+\end{tabular}
+\end{table}

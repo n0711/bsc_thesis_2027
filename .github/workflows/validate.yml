@@ -1,0 +1,30 @@
+name: Thesis verification
+on:
+  push:
+  pull_request:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m unittest discover -s tests -v
+      - run: python src/experiment.py
+      - run: python src/make_tables.py
+      - run: python src/paired_analysis.py
+      - name: Check reproducible generated evidence
+        run: git diff --exit-code -- results/ tex/generated_results.tex tex/plot_data.tsv tex/paired_results.tex
+  latex:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install XeLaTeX and necessary packages
+        run: sudo apt-get update && sudo apt-get install -y texlive-xetex texlive-latex-extra texlive-pictures tex-gyre
+      - name: Build dissertation
+        run: cd tex && xelatex -halt-on-error -interaction=nonstopmode thesis.tex && xelatex -halt-on-error -interaction=nonstopmode thesis.tex
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bsc-thesis-draft-pdf
+          path: tex/thesis.pdf

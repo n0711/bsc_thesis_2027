@@ -1,0 +1,477 @@
+{
+  "evidence_type": "synthetic_surrogate_not_LLM",
+  "evaluation_protocol": "score calls matched exactly; random sampling with replacement; fresh heldout vectors",
+  "vocab_size": 6,
+  "lengths": [
+    2,
+    3,
+    4
+  ],
+  "budgets": [
+    12,
+    24,
+    36,
+    72
+  ],
+  "seeds_per_method": 50,
+  "train_target_count": 4,
+  "holdout_target_count": 4,
+  "experiments": [
+    {
+      "length": 2,
+      "budget": 12,
+      "search_space": 36,
+      "oracle_train_score": 0.7401945361506257,
+      "oracle_prompt": [
+        "formal",
+        "formal"
+      ],
+      "oracle_tie_count": 1,
+      "random_exact_optimum_hit_probability": 0.2868407443851712,
+      "random_exact_expected_best_score": 0.7352477310966437,
+      "methods": {
+        "random": {
+          "mean_train_score": 0.7341421872825667,
+          "mean_heldout_score": 0.7086496511904103,
+          "mean_regret": 0.00605234886805901,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.002729113470740365,
+            0.010016106024539468
+          ],
+          "optimal_hits": 11,
+          "mean_unique_candidates": 10.26
+        },
+        "coordinate": {
+          "mean_train_score": 0.7392581684620617,
+          "mean_heldout_score": 0.7073945645557003,
+          "mean_regret": 0.0009363676885639882,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.0005530455182074223,
+            0.0014200610214012577
+          ],
+          "optimal_hits": 30,
+          "mean_unique_candidates": 10.3
+        }
+      }
+    },
+    {
+      "length": 2,
+      "budget": 24,
+      "search_space": 36,
+      "oracle_train_score": 0.7401945361506257,
+      "oracle_prompt": [
+        "formal",
+        "formal"
+      ],
+      "oracle_tie_count": 1,
+      "random_exact_optimum_hit_probability": 0.49140387613090325,
+      "random_exact_expected_best_score": 0.7389686439238573,
+      "methods": {
+        "random": {
+          "mean_train_score": 0.7386814326316505,
+          "mean_heldout_score": 0.7111932203383824,
+          "mean_regret": 0.0015131035189752007,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.0009714737051264844,
+            0.0021478688672188673
+          ],
+          "optimal_hits": 23,
+          "mean_unique_candidates": 17.36
+        },
+        "coordinate": {
+          "mean_train_score": 0.7400230520155239,
+          "mean_heldout_score": 0.7105169483070671,
+          "mean_regret": 0.00017148413510182037,
+          "regret_bootstrap_95pct_seed_interval": [
+            3.350691330486377e-05,
+            0.00032131006263128145
+          ],
+          "optimal_hits": 45,
+          "mean_unique_candidates": 17.68
+        }
+      }
+    },
+    {
+      "length": 2,
+      "budget": 36,
+      "search_space": 36,
+      "oracle_train_score": 0.7401945361506257,
+      "oracle_prompt": [
+        "formal",
+        "formal"
+      ],
+      "oracle_tie_count": 1,
+      "random_exact_optimum_hit_probability": 0.6372899668929277,
+      "random_exact_expected_best_score": 0.7395103502986045,
+      "methods": {
+        "random": {
+          "mean_train_score": 0.7393799279943554,
+          "mean_heldout_score": 0.7179160155213458,
+          "mean_regret": 0.0008146081562702823,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.0005682110574037314,
+            0.0010610052551368332
+          ],
+          "optimal_hits": 27,
+          "mean_unique_candidates": 22.66
+        },
+        "coordinate": {
+          "mean_train_score": 0.7401945361506257,
+          "mean_heldout_score": 0.707889214036158,
+          "mean_regret": 0.0,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.0,
+            0.0
+          ],
+          "optimal_hits": 50,
+          "mean_unique_candidates": 21.66
+        }
+      }
+    },
+    {
+      "length": 2,
+      "budget": 72,
+      "search_space": 36,
+      "oracle_train_score": 0.7401945361506257,
+      "oracle_prompt": [
+        "formal",
+        "formal"
+      ],
+      "oracle_tie_count": 1,
+      "random_exact_optimum_hit_probability": 0.8684414318834666,
+      "random_exact_expected_best_score": 0.739970114448902,
+      "methods": {
+        "random": {
+          "mean_train_score": 0.7398220105356947,
+          "mean_heldout_score": 0.7146081937172883,
+          "mean_regret": 0.000372525614931003,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.00017938327225682337,
+            0.0005775166633376871
+          ],
+          "optimal_hits": 39,
+          "mean_unique_candidates": 31.5
+        },
+        "coordinate": {
+          "mean_train_score": 0.7401945361506257,
+          "mean_heldout_score": 0.707889214036158,
+          "mean_regret": 0.0,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.0,
+            0.0
+          ],
+          "optimal_hits": 50,
+          "mean_unique_candidates": 27.0
+        }
+      }
+    },
+    {
+      "length": 3,
+      "budget": 12,
+      "search_space": 216,
+      "oracle_train_score": 0.747292128484164,
+      "oracle_prompt": [
+        "formal",
+        "formal",
+        "formal"
+      ],
+      "oracle_tie_count": 1,
+      "random_exact_optimum_hit_probability": 0.05416255116420629,
+      "random_exact_expected_best_score": 0.7343480375710372,
+      "methods": {
+        "random": {
+          "mean_train_score": 0.7361151670264927,
+          "mean_heldout_score": 0.7102917761004618,
+          "mean_regret": 0.011176961457671315,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.005558594588076946,
+            0.017315282117691542
+          ],
+          "optimal_hits": 2,
+          "mean_unique_candidates": 11.66
+        },
+        "coordinate": {
+          "mean_train_score": 0.7414773498444427,
+          "mean_heldout_score": 0.7101067699113939,
+          "mean_regret": 0.0058147786397214005,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.002429757643772359,
+            0.010426524703596902
+          ],
+          "optimal_hits": 10,
+          "mean_unique_candidates": 11.3
+        }
+      }
+    },
+    {
+      "length": 3,
+      "budget": 24,
+      "search_space": 216,
+      "oracle_train_score": 0.747292128484164,
+      "oracle_prompt": [
+        "formal",
+        "formal",
+        "formal"
+      ],
+      "oracle_tie_count": 1,
+      "random_exact_optimum_hit_probability": 0.10539152037979732,
+      "random_exact_expected_best_score": 0.7432718879533394,
+      "methods": {
+        "random": {
+          "mean_train_score": 0.7431564410260768,
+          "mean_heldout_score": 0.7175285171086345,
+          "mean_regret": 0.004135687458087231,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.0017792680628902558,
+            0.007202481741892775
+          ],
+          "optimal_hits": 2,
+          "mean_unique_candidates": 22.74
+        },
+        "coordinate": {
+          "mean_train_score": 0.7466604763175009,
+          "mean_heldout_score": 0.7187009544597074,
+          "mean_regret": 0.0006316521666631969,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.00042749238486970763,
+            0.0008831116562068586
+          ],
+          "optimal_hits": 25,
+          "mean_unique_candidates": 21.46
+        }
+      }
+    },
+    {
+      "length": 3,
+      "budget": 36,
+      "search_space": 216,
+      "oracle_train_score": 0.747292128484164,
+      "oracle_prompt": [
+        "formal",
+        "formal",
+        "formal"
+      ],
+      "oracle_tie_count": 1,
+      "random_exact_optimum_hit_probability": 0.15384579792915934,
+      "random_exact_expected_best_score": 0.7454089870074966,
+      "methods": {
+        "random": {
+          "mean_train_score": 0.7457209678696844,
+          "mean_heldout_score": 0.721005665621235,
+          "mean_regret": 0.0015711606144796187,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.0012739186550675163,
+            0.0019241277559582115
+          ],
+          "optimal_hits": 3,
+          "mean_unique_candidates": 33.24
+        },
+        "coordinate": {
+          "mean_train_score": 0.7469770859478062,
+          "mean_heldout_score": 0.7159656670436592,
+          "mean_regret": 0.00031504253635784575,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.0001744638654454489,
+            0.00045656761026956926
+          ],
+          "optimal_hits": 36,
+          "mean_unique_candidates": 30.92
+        }
+      }
+    },
+    {
+      "length": 3,
+      "budget": 72,
+      "search_space": 216,
+      "oracle_train_score": 0.747292128484164,
+      "oracle_prompt": [
+        "formal",
+        "formal",
+        "formal"
+      ],
+      "oracle_tie_count": 1,
+      "random_exact_optimum_hit_probability": 0.28402306631785895,
+      "random_exact_expected_best_score": 0.746479214962239,
+      "methods": {
+        "random": {
+          "mean_train_score": 0.7463320204059575,
+          "mean_heldout_score": 0.7222241705857089,
+          "mean_regret": 0.000960108078206523,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.0007484429560535876,
+            0.0011902471835877405
+          ],
+          "optimal_hits": 13,
+          "mean_unique_candidates": 61.4
+        },
+        "coordinate": {
+          "mean_train_score": 0.7472339738623489,
+          "mean_heldout_score": 0.714713223274525,
+          "mean_regret": 5.815462181514963e-05,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.0,
+            0.0001261425277934536
+          ],
+          "optimal_hits": 47,
+          "mean_unique_candidates": 49.94
+        }
+      }
+    },
+    {
+      "length": 4,
+      "budget": 12,
+      "search_space": 1296,
+      "oracle_train_score": 0.7539956313215125,
+      "oracle_prompt": [
+        "formal",
+        "formal",
+        "formal",
+        "formal"
+      ],
+      "oracle_tie_count": 1,
+      "random_exact_optimum_hit_probability": 0.009220065454687091,
+      "random_exact_expected_best_score": 0.7330418102605277,
+      "methods": {
+        "random": {
+          "mean_train_score": 0.7306174923760248,
+          "mean_heldout_score": 0.7100626226421912,
+          "mean_regret": 0.02337813894548767,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.017726162311478454,
+            0.028930214501559366
+          ],
+          "optimal_hits": 0,
+          "mean_unique_candidates": 11.94
+        },
+        "coordinate": {
+          "mean_train_score": 0.745899576155942,
+          "mean_heldout_score": 0.7156108651002091,
+          "mean_regret": 0.008096055165570501,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.004750536828816467,
+            0.011977844377664124
+          ],
+          "optimal_hits": 0,
+          "mean_unique_candidates": 11.34
+        }
+      }
+    },
+    {
+      "length": 4,
+      "budget": 24,
+      "search_space": 1296,
+      "oracle_train_score": 0.7539956313215125,
+      "oracle_prompt": [
+        "formal",
+        "formal",
+        "formal",
+        "formal"
+      ],
+      "oracle_tie_count": 1,
+      "random_exact_optimum_hit_probability": 0.018355121302385466,
+      "random_exact_expected_best_score": 0.744084745411748,
+      "methods": {
+        "random": {
+          "mean_train_score": 0.7431592927074188,
+          "mean_heldout_score": 0.7134914168290167,
+          "mean_regret": 0.010836338614093721,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.007455316093499296,
+            0.014495191075954657
+          ],
+          "optimal_hits": 0,
+          "mean_unique_candidates": 23.74
+        },
+        "coordinate": {
+          "mean_train_score": 0.7530927119593216,
+          "mean_heldout_score": 0.724744797296024,
+          "mean_regret": 0.0009029193621909237,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.0008044032370087995,
+            0.0009988508933559937
+          ],
+          "optimal_hits": 3,
+          "mean_unique_candidates": 22.3
+        }
+      }
+    },
+    {
+      "length": 4,
+      "budget": 36,
+      "search_space": 1296,
+      "oracle_train_score": 0.7539956313215125,
+      "oracle_prompt": [
+        "formal",
+        "formal",
+        "formal",
+        "formal"
+      ],
+      "oracle_tie_count": 1,
+      "random_exact_optimum_hit_probability": 0.027405951337235845,
+      "random_exact_expected_best_score": 0.7484577868743296,
+      "methods": {
+        "random": {
+          "mean_train_score": 0.74859252368578,
+          "mean_heldout_score": 0.7146338050771387,
+          "mean_regret": 0.00540310763573248,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.003305228930465283,
+            0.00807157537719816
+          ],
+          "optimal_hits": 1,
+          "mean_unique_candidates": 35.48
+        },
+        "coordinate": {
+          "mean_train_score": 0.7532682898391851,
+          "mean_heldout_score": 0.72419852840343,
+          "mean_regret": 0.0007273414823272617,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.0006031560803143798,
+            0.0008451946007855194
+          ],
+          "optimal_hits": 10,
+          "mean_unique_candidates": 33.02
+        }
+      }
+    },
+    {
+      "length": 4,
+      "budget": 72,
+      "search_space": 1296,
+      "oracle_train_score": 0.7539956313215125,
+      "oracle_prompt": [
+        "formal",
+        "formal",
+        "formal",
+        "formal"
+      ],
+      "oracle_tie_count": 1,
+      "random_exact_optimum_hit_probability": 0.05406081650577275,
+      "random_exact_expected_best_score": 0.7522192084560921,
+      "methods": {
+        "random": {
+          "mean_train_score": 0.7518760595136241,
+          "mean_heldout_score": 0.7215229568559294,
+          "mean_regret": 0.0021195718078883164,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.0012123892941927883,
+            0.0035585036473658118
+          ],
+          "optimal_hits": 4,
+          "mean_unique_candidates": 70.32
+        },
+        "coordinate": {
+          "mean_train_score": 0.753670518115732,
+          "mean_heldout_score": 0.7223971049225192,
+          "mean_regret": 0.00032511320578043623,
+          "regret_bootstrap_95pct_seed_interval": [
+            0.00021336979815545165,
+            0.000433703110053707
+          ],
+          "optimal_hits": 30,
+          "mean_unique_candidates": 63.38
+        }
+      }
+    }
+  ]
+}
