@@ -291,6 +291,8 @@ To complement method-wise means, the two algorithms are compared at identical le
 \input{paired_results.tex}
 
 
+\input{coordinate_landscape.tex}
+
 \chapter{MATLAB-Ready Visualization and Research Audit}
 \section{Purpose and evidentiary scope}
 The numerical experiment is implemented in Python, while its figures are specified independently in a MATLAB script to support inspection with standard mathematical engineering tools. The shared interchange file \texttt{matlab/synthetic\_summary.csv} contains twelve rows, one per length and evaluation-budget configuration. Each row retains the exact oracle score, aggregate development and held-out surrogate scores, mean regrets, optimum-hit counts and paired-seed summaries. Plotting is deliberately separated from the optimizer so changes in charting cannot alter the search procedure.

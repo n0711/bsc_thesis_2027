@@ -1,0 +1,58 @@
+\section{Where single-token search can stop}
+\label{sec:coordinate-stopping}
+A finite budget can end a run while an improving move is still available.
+A different limitation arises when every permitted move fails the improvement
+test. To distinguish these mechanisms, we enumerated the training-score
+landscape independently of the fifty search seeds.
+
+For a prompt $p$ of length $m$, let $N(p)$ contain every tuple obtained by
+replacing exactly one token. With six symbols, each prompt has $5m$ neighbours.
+Writing $S$ for the implemented mean logistic training score, we count $p$
+as terminal when
+\[
+  \max_{q\in N(p)} S(q) \leq S(p)+10^{-12}.
+\]
+This is the improvement threshold in \texttt{coordinate\_search}. We scored
+each of the $6^m$ prompts once and compared its cached score with each
+neighbour's score. Each edge is counted in both directions. A terminal prompt
+is suboptimal when its score lies more than $10^{-12}$ below the enumerated
+maximum at the same length.
+
+\begin{center}
+\begin{tabular}{rrrrr}
+\toprule
+$m$ & Prompts & Directed comparisons & Terminal & Suboptimal terminal\\
+\midrule
+2 & 36 & 360 & 2 & 1\\
+3 & 216 & 3\,240 & 3 & 2\\
+4 & 1\,296 & 25\,920 & 9 & 8\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+At length two, \texttt{(example, verify)} scores $0.738322$.
+Its best single-token neighbour scores $0.738025$, while
+\texttt{(formal, formal)} attains the global maximum of $0.740195$
+(values rounded after comparison). Thus a run at the first prompt can have
+positive regret even after checking every legal substitution. The implemented
+restart gives the search a way to leave this state if budget remains.
+
+\paragraph{Reproduction.}
+From the repository root run \texttt{python3 src/landscape\_audit.py}.
+Each line gives the length, prompt count, directed comparison count,
+terminal count, suboptimal terminal count and terminal tuples. The audit
+imports the vocabulary, lengths, score and tolerance from the experiment at
+revision \texttt{3cdf1ac}. The counts cover all prompts on the fixed training
+vectors at these lengths.
+
+\paragraph{What still requires validation.}
+These counts give no visit frequencies. Attributing a failed trial to a trap
+requires its seed, length, budget, evaluated moves and scores in order,
+incumbent changes, completed neighbourhood sweeps, restarts and final
+evaluation index. Measuring the benefit of restarting requires a matched
+no-restart baseline with a declared rule for unused calls, the same starts,
+budgets and scorer, and paired per-seed outcomes. Extending the result to
+language-model tasks requires a pinned model and tokenizer, fixed task and
+split IDs, a frozen prompt space and move rule, decoding settings, a scoring
+rule, and retained per-example predictions and call logs. No model inference
+enters the enumeration above.
