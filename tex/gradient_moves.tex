@@ -1,40 +1,32 @@
 \section{Does the gradient identify improving token replacements?}
 The continuous score gradient gives a directional derivative at the current
-embedding. A token replacement takes a finite step. We tested how often the
-first-order approximation correctly identifies an improvement over that step.
+embedding. A token replacement takes a finite step. The audit evaluates every
+directed one-token replacement on the fixed synthetic training objective.
 
-For each ordered single-token replacement from $p$ to $q$, write $x(p)$ for
-the implemented embedding and $F$ for the mean logistic score on the four
-fixed training vectors. The predicted change and the measured change are
-\[
- g = \nabla F(x(p))^\top [x(q)-x(p)], \qquad d = F(x(q))-F(x(p)).
-\]
-We classified a move as predicted improving when $g>10^{-12}$ and actually
-improving when $d>10^{-12}$. For example, replacing the first token of
-\texttt{(clear, clear)} with \texttt{json} gives $g=+0.006203$ and
-$d=-0.020434$. The positive local slope overestimates the finite gain.
+For each prompt, the five-$m$ immediate neighbours are ranked by the
+first-order estimate and by the measured finite score change. Top-1 agreement
+counts tied maxima as agreement when the two tied sets intersect. The mean
+Spearman coefficient is computed across defined per-prompt rankings using
+midranks, grouping rank ties within the audit tolerance; the table reports
+the mean over prompts with a defined coefficient.
 
 \begin{center}
-\begin{tabular}{rrrrr}
+\begin{tabular}{rrrrrrr}
 \toprule
-Length & True positive & False positive & False negative & True negative\\
+$m$ & Moves & Sign agreement & Top-1 & Mean Spearman & Terminal, nonzero $\nabla F$ \\
 \midrule
-2 & 180 & 20 & 0 & 160\\
-3 & 1620 & 133 & 0 & 1487\\
-4 & 12960 & 851 & 0 & 12109\\
+2 & 360 & 0.9444 & 0.3889 & 0.9559 & 2 \\
+3 & 3240 & 0.9590 & 0.5324 & 0.9777 & 3 \\
+4 & 25920 & 0.9672 & 0.6219 & 0.9863 & 9 \\
 \bottomrule
 \end{tabular}
 \end{center}
-Across the 29,520 directed replacements, the gradient flagged all 14,760
-improvements and flagged 1,004 additional moves. Thus 14,760 of the 15,764
-flagged moves improved the fixed training objective (93.63\%). These counts
-cover the specified finite spaces exhaustively. They do not establish the same
-property for longer prompts, other task vectors or language models.
-A search algorithm using the sign as a filter would still need to score a
-flagged move before accepting it. Whether this saves work depends on the
-cost of obtaining gradients and on which prompts the search visits.
+
+Across 29,520 directed moves, sign agreement was 96.60%. Per-state top-1 agreement was 60.40%. Among 1,548 prompt states, 14 had no strictly improving discrete neighbour ($\max\Delta F\leq 10^{-12}$) despite a nonzero continuous gradient (norm $>10^{-12}$). A nonzero gradient therefore does not guarantee an improving move in the permitted discrete neighbourhood.
+
+The sign confusion counts were 14,760 true positive, 1,004 false positive, 0 false negative and 13,756 true negative. These exhaustive counts apply only to the enumerated surrogate spaces and do not establish the same behavior for longer prompts or language models.
 
 \paragraph{Reproduction.}
 From the repository root run \texttt{python3 src/gradient\_audit.py}.
-The script enumerates every position and every alternative token at each
-starting prompt, and checks the total against $6^m(5m)$ for each length $m$.
+The script writes the per-state JSON results to
+\texttt{results/gradient\_audit.json} and regenerates this table.

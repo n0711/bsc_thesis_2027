@@ -1,0 +1,212 @@
+{
+  "evidence_type": "synthetic_surrogate_not_LLM",
+  "improvement_tolerance": 1e-12,
+  "lengths": [
+    {
+      "directed_comparison_count": 360,
+      "length": 2,
+      "nonimproving_nonzero_gradient_count": 2,
+      "prompt_count": 36,
+      "suboptimal_terminal_count": 1,
+      "terminal_count": 2,
+      "terminal_states": [
+        {
+          "gradient_norm": 0.172241324521,
+          "max_neighbor_change": -0.001675345665,
+          "nonzero_gradient": true,
+          "prompt": [
+            "formal",
+            "formal"
+          ],
+          "score": 0.740194536151,
+          "suboptimal": false
+        },
+        {
+          "gradient_norm": 0.175227986778,
+          "max_neighbor_change": -0.000297043176,
+          "nonzero_gradient": true,
+          "prompt": [
+            "example",
+            "verify"
+          ],
+          "score": 0.738321712057,
+          "suboptimal": true
+        }
+      ]
+    },
+    {
+      "directed_comparison_count": 3240,
+      "length": 3,
+      "nonimproving_nonzero_gradient_count": 3,
+      "prompt_count": 216,
+      "suboptimal_terminal_count": 2,
+      "terminal_count": 3,
+      "terminal_states": [
+        {
+          "gradient_norm": 0.163031137914,
+          "max_neighbor_change": -0.000778211901,
+          "nonzero_gradient": true,
+          "prompt": [
+            "formal",
+            "formal",
+            "formal"
+          ],
+          "score": 0.747292128484,
+          "suboptimal": false
+        },
+        {
+          "gradient_norm": 0.164353134695,
+          "max_neighbor_change": -0.000195449123,
+          "nonzero_gradient": true,
+          "prompt": [
+            "example",
+            "formal",
+            "verify"
+          ],
+          "score": 0.746227368889,
+          "suboptimal": true
+        },
+        {
+          "gradient_norm": 0.161060832447,
+          "max_neighbor_change": -0.00020660206,
+          "nonzero_gradient": true,
+          "prompt": [
+            "verify",
+            "verify",
+            "example"
+          ],
+          "score": 0.74582371394,
+          "suboptimal": true
+        }
+      ]
+    },
+    {
+      "directed_comparison_count": 25920,
+      "length": 4,
+      "nonimproving_nonzero_gradient_count": 9,
+      "prompt_count": 1296,
+      "suboptimal_terminal_count": 8,
+      "terminal_count": 9,
+      "terminal_states": [
+        {
+          "gradient_norm": 0.154148766072,
+          "max_neighbor_change": -0.000586723406,
+          "nonzero_gradient": true,
+          "prompt": [
+            "formal",
+            "formal",
+            "formal",
+            "formal"
+          ],
+          "score": 0.753995631322,
+          "suboptimal": false
+        },
+        {
+          "gradient_norm": 0.155938755986,
+          "max_neighbor_change": -0.000106817753,
+          "nonzero_gradient": true,
+          "prompt": [
+            "formal",
+            "formal",
+            "example",
+            "verify"
+          ],
+          "score": 0.753040002917,
+          "suboptimal": true
+        },
+        {
+          "gradient_norm": 0.155286864435,
+          "max_neighbor_change": -0.000225382663,
+          "nonzero_gradient": true,
+          "prompt": [
+            "formal",
+            "example",
+            "formal",
+            "verify"
+          ],
+          "score": 0.753158567826,
+          "suboptimal": true
+        },
+        {
+          "gradient_norm": 0.155749455756,
+          "max_neighbor_change": -1.8322599e-05,
+          "nonzero_gradient": true,
+          "prompt": [
+            "formal",
+            "example",
+            "verify",
+            "formal"
+          ],
+          "score": 0.753124797306,
+          "suboptimal": true
+        },
+        {
+          "gradient_norm": 0.154652773781,
+          "max_neighbor_change": -0.000320059152,
+          "nonzero_gradient": true,
+          "prompt": [
+            "example",
+            "formal",
+            "formal",
+            "verify"
+          ],
+          "score": 0.753253244316,
+          "suboptimal": true
+        },
+        {
+          "gradient_norm": 0.155100409114,
+          "max_neighbor_change": -0.000132766991,
+          "nonzero_gradient": true,
+          "prompt": [
+            "example",
+            "formal",
+            "verify",
+            "formal"
+          ],
+          "score": 0.753239241698,
+          "suboptimal": true
+        },
+        {
+          "gradient_norm": 0.156243586975,
+          "max_neighbor_change": -7.866895e-05,
+          "nonzero_gradient": true,
+          "prompt": [
+            "example",
+            "example",
+            "verify",
+            "verify"
+          ],
+          "score": 0.752396933094,
+          "suboptimal": true
+        },
+        {
+          "gradient_norm": 0.15275120387,
+          "max_neighbor_change": -5.35409e-07,
+          "nonzero_gradient": true,
+          "prompt": [
+            "verify",
+            "formal",
+            "verify",
+            "example"
+          ],
+          "score": 0.752824248937,
+          "suboptimal": true
+        },
+        {
+          "gradient_norm": 0.153126811504,
+          "max_neighbor_change": -0.00016316783,
+          "nonzero_gradient": true,
+          "prompt": [
+            "verify",
+            "verify",
+            "formal",
+            "example"
+          ],
+          "score": 0.752896523002,
+          "suboptimal": true
+        }
+      ]
+    }
+  ],
+  "schema_version": 1
+}

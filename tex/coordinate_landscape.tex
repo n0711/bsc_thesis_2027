@@ -2,8 +2,7 @@
 \label{sec:coordinate-stopping}
 A finite budget can end a run while an improving move is still available.
 A different limitation arises when every permitted move fails the improvement
-test. To distinguish these mechanisms, we enumerated the training-score
-landscape independently of the fifty search seeds.
+test. We enumerated the training-score landscape independently of the fifty search seeds.
 
 For a prompt $p$ of length $m$, let $N(p)$ contain every tuple obtained by
 replacing exactly one token. With six symbols, each prompt has $5m$ neighbours.
@@ -12,38 +11,28 @@ as terminal when
 \[
   \max_{q\in N(p)} S(q) \leq S(p)+10^{-12}.
 \]
-This is the improvement threshold in \texttt{coordinate\_search}. We scored
-each of the $6^m$ prompts once and compared its cached score with each
-neighbour's score. Each edge is counted in both directions. A terminal prompt
-is suboptimal when its score lies more than $10^{-12}$ below the enumerated
-maximum at the same length.
+This is the improvement threshold in \texttt{coordinate\_search}. A terminal
+prompt is suboptimal when its score lies more than $10^{-12}$ below the
+enumerated maximum at the same length.
 
 \begin{center}
-\begin{tabular}{rrrrr}
+\begin{tabular}{rrrrrr}
 \toprule
-$m$ & Prompts & Directed comparisons & Terminal & Suboptimal terminal\\
+$m$ & Prompts & Directed comparisons & Terminal & Suboptimal terminal & Terminal, nonzero $\nabla F$ \\
 \midrule
-2 & 36 & 360 & 2 & 1\\
-3 & 216 & 3\,240 & 3 & 2\\
-4 & 1\,296 & 25\,920 & 9 & 8\\
+2 & 36 & 360 & 2 & 1 & 2 \\
+3 & 216 & 3,240 & 3 & 2 & 3 \\
+4 & 1,296 & 25,920 & 9 & 8 & 9 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-At length two, \texttt{(example, verify)} scores $0.738322$.
-Its best single-token neighbour scores $0.738025$, while
-\texttt{(formal, formal)} attains the global maximum of $0.740195$
-(values rounded after comparison). Thus a run at the first prompt can have
-positive regret even after checking every legal substitution. The implemented
-restart gives the search a way to leave this state if budget remains.
+Across these lengths, 14 states are terminal, of which 11 are suboptimal. In 14 terminal states, the continuous gradient norm exceeds $10^{-12}$. Thus the absence of an improving discrete neighbor does not imply a zero continuous gradient.
 
 \paragraph{Reproduction.}
 From the repository root run \texttt{python3 src/landscape\_audit.py}.
-Each line gives the length, prompt count, directed comparison count,
-terminal count, suboptimal terminal count and terminal tuples. The audit
-imports the vocabulary, lengths, score and tolerance from the experiment at
-revision \texttt{3cdf1ac}. The counts cover all prompts on the fixed training
-vectors at these lengths.
+The script writes terminal-state details to
+\texttt{results/landscape\_audit.json} and regenerates this table.
 
 \paragraph{What still requires validation.}
 These counts give no visit frequencies. Attributing a failed trial to a trap

@@ -13,6 +13,7 @@ import math
 import random
 from collections import Counter
 from dataclasses import dataclass
+from fractions import Fraction
 from pathlib import Path
 
 VOCAB = ("clear", "short", "formal", "example", "json", "verify")
@@ -155,7 +156,8 @@ def exact_random_optimal_probability(space_size: int, optimal_count: int, budget
         raise ValueError("invalid probability parameters")
     if optimal_count == space_size:
         return 1.0
-    return -math.expm1(budget * math.log1p(-optimal_count / space_size))
+    miss_probability = Fraction(space_size - optimal_count, space_size) ** budget
+    return float(1 - miss_probability)
 
 
 def exact_random_expected_best(scores: list[float], budget: int):

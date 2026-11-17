@@ -65,6 +65,10 @@ class SurrogateTests(unittest.TestCase):
         self.assertAlmostEqual(exact_random_optimal_probability(4, 1, 2), 7/16)
         self.assertAlmostEqual(exact_random_optimal_probability(2, 1, 1), 0.5)
         self.assertEqual(exact_random_optimal_probability(6, 6, 4), 1.0)
+        self.assertEqual(
+            exact_random_optimal_probability(216, 1, 36),
+            0.15384579792915937,
+        )
 
     def test_expected_best(self):
         self.assertAlmostEqual(exact_random_expected_best([0., 1.], 1), .5)

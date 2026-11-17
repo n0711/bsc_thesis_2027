@@ -1,8 +1,8 @@
 \documentclass[12pt,a4paper,oneside]{report}
 \usepackage[margin=27mm,headheight=15pt]{geometry}
 \usepackage{fontspec}
-\setmainfont{TeXGyrePagella}
-\setsansfont{TeXGyreHeros}
+\setmainfont{TeX Gyre Pagella}
+\setsansfont{TeX Gyre Heros}
 \setmonofont{DejaVu Sans Mono}[Scale=0.82]
 \usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,longtable,array,graphicx,caption,enumitem}
 \usepackage{microtype,tikz,pgfplots,hyperref,bookmark,fancyhdr,listings,xcolor}
@@ -47,7 +47,7 @@
 \pagenumbering{roman}
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
-A textual prompt is an ordered sequence of symbols from a finite vocabulary, whereas its evaluation by a neural language model is mediated by vectors, matrices, nonlinear functions and probability distributions. This dissertation examines prompt engineering at the interface between discrete combinatorial search and continuous computation. It extends the author's submitted October 2026 article of the same title into a mathematical and experimental investigation. The theoretical component defines a constrained prompt-search objective, reviews the derivatives governing attention-related and soft-prompt operations, derives a sensitivity bound for a differentiable scoring surrogate, and proves exact finite-search expressions for random-search success and expected best score. The implementation component provides a dependency-free Python benchmark with a six-token abstract vocabulary, two-dimensional embeddings and a set of fixed synthetic task vectors. Exact enumeration establishes the optimum for prompt lengths two, three and four. Random search and restarting first-improvement coordinate search are compared under identical counts of objective evaluations across twelve budget-length configurations, with fifty deterministic seeds each. Twenty-two local automated tests verify mathematical identities, exhaustive enumeration, reproducibility, evaluation budgets and an offline results-scoring interface. A representative three-token, thirty-six-call configuration yields mean synthetic scores of 0.745721 and 0.746977 for random and coordinate search, respectively, versus the exact optimum of 0.747292. These outcomes demonstrate properties of the stated surrogate, \emph{not} improved prompting of a deployed LLM. A prospective held-out real-model evaluation protocol is defined but not claimed to have been executed. The thesis contributes a transparent bridge between mathematical abstraction, reproducible finite optimization and the evidence requirements of future empirical prompt-engineering research.
+A textual prompt is an ordered sequence of symbols from a finite vocabulary, whereas its evaluation by a neural language model is mediated by vectors, matrices, nonlinear functions and probability distributions. This dissertation examines prompt engineering at the interface between discrete combinatorial search and continuous computation. It extends the author's submitted October 2026 article of the same title into a mathematical and experimental investigation. The theoretical component defines a constrained prompt-search objective, reviews the derivatives governing attention-related and soft-prompt operations, derives a sensitivity bound for a differentiable scoring surrogate, and proves exact finite-search expressions for random-search success and expected best score. The implementation component provides a dependency-free Python benchmark with a six-token abstract vocabulary, two-dimensional embeddings and a set of fixed synthetic task vectors. Exact enumeration establishes the optimum for prompt lengths two, three and four. Random search and restarting first-improvement coordinate search are compared under identical counts of objective evaluations across twelve budget-length configurations, with fifty deterministic seeds each. Twenty-seven local automated tests verify mathematical identities, exhaustive enumeration, reproducibility, evaluation budgets, per-state gradient ranking, discrete stopping points and an offline results-scoring interface. A representative three-token, thirty-six-call configuration yields mean synthetic scores of 0.745721 and 0.746977 for random and coordinate search, respectively, versus the exact optimum of 0.747292. These outcomes demonstrate properties of the stated surrogate, \emph{not} improved prompting of a deployed LLM. A prospective held-out real-model evaluation protocol is defined but not claimed to have been executed. The thesis contributes a transparent bridge between mathematical abstraction, reproducible finite optimization and the evidence requirements of future empirical prompt-engineering research.
 
 \noindent\textbf{Keywords:} prompt engineering, discrete optimization, calculus, embeddings, finite search, reproducibility, synthetic benchmark, large language models.
 \clearpage
@@ -133,13 +133,13 @@ Attention computes a continuous transformation of projections $Q=XW_Q$, $K=XW_K$
 The mapping can be differentiable in its vector inputs without a meaningful infinitesimal operation on token identities. Replacing $t_i$ by $t'_i$ changes an entire embedding vector, its magnitude can be large in embedding space.
 
 \begin{figure}[htbp]\centering
-\begin{tikzpicture}[node distance=7mm, every node/.style={font=\small}, >=stealth]
+\begin{tikzpicture}[node distance=18mm, every node/.style={font=\small}, >=stealth]
 \node[draw,rounded corners,minimum width=36mm,minimum height=13mm] (a) {token tuple $p\in\Vocab^m$};
 \node[draw,rounded corners,right=of a,minimum width=34mm,minimum height=13mm] (b) {embedding $X(p)$};
 \node[draw,rounded corners,right=of b,minimum width=34mm,minimum height=13mm] (c) {$f_\theta$, logits};
-\draw[->,thick] (a) -- node[above]{lookup} (b);
-\draw[->,thick] (b) -- node[above]{continuous} (c);
-\node[below=11mm of b,draw,dashed,align=center,minimum width=48mm] (d) {choose another discrete tuple\\or optimize continuous vectors};
+\draw[->,thick] (a) -- node[above,fill=white,inner sep=1pt]{lookup} (b);
+\draw[->,thick] (b) -- node[above,fill=white,inner sep=1pt]{continuous} (c);
+\node[below=14mm of b,draw,dashed,align=center,minimum width=48mm] (d) {choose another discrete tuple\\or optimize continuous vectors};
 \draw[->,dashed] (d.west) -- ++(-13mm,0) |- (a.south);
 \end{tikzpicture}
 \caption{The mathematical separation between prompt selection and differentiable computation. This diagram is schematic and does not depict the experimental surrogate as an LLM.}\label{fig:interface}
@@ -242,7 +242,7 @@ Secondary outcomes&held-out score, optimal hits, distinct candidates\\\bottomrul
 All score-call budgets are matched, but a score call is not equivalent to identical wall-clock cost: neighbor generation and restart logic differ. Random search can revisit a tuple, coordinate search can do so too. Recording distinct candidates makes repeat sampling visible instead of silently treating budget as the number of unique prompts. Reported point estimates are arithmetic means over fifty fixed seeds. Percentile bootstrap intervals for mean regret are computed by resampling those fifty trials with a fixed bootstrap seed and 2000 replicates. They describe variation across these randomized starts and \emph{do not} quantify a population of real language-model tasks.
 
 \section{Verification strategy}
-Twenty-two unit tests check: stable logistic behavior at extreme inputs, finite-space counts, input rejection, central-difference agreement with the analytical gradient, exact oracle optimality, equal evaluation budgets, repeatability under identical seeds, random optimum-hit probability, exact expected best for a two-point example, separation of training and held-out vectors, deterministic bootstrap output, complete CSV/JSON generation, and correctness and validation of the offline scoring interface. Unit tests are evidence that these specified checks pass in a local Python runtime, not a proof that the implementation is free of bugs.
+Unit tests check stable logistic behavior at extreme inputs, finite-space counts, input rejection, central-difference agreement with the analytical gradient, exact oracle optimality, equal evaluation budgets, repeatability under identical seeds, exact random-search probabilities, separation of training and held-out vectors, deterministic bootstrap output, offline scoring validation, exhaustive gradient ranking, and discrete stopping points with nonzero continuous gradients. Unit tests are evidence that these specified checks pass in a local Python runtime, not a proof that the implementation is free of bugs.
 
 \section{Evidence chain and versioning}
 The repository contains the exact source, test suite, generated tables and recorded results. The document can be rebuilt from the repository state. After a GitHub push, CI is configured to run the tests, regenerate results and build the XeLaTeX PDF, that workflow must be checked separately before describing it as passing. The manuscript's source article remains a preprint/submitted short article, not evidence of experimental validation or external acceptance.
@@ -258,7 +258,7 @@ Figure~\ref{fig:budget} plots the three-token outcomes across four budgets. Thes
 
 \begin{figure}[htbp]\centering
 \begin{tikzpicture}
-\begin{axis}[width=.86\textwidth,height=67mm,xlabel={Score evaluations $B$},ylabel={Mean synthetic score},xmin=10,xmax=75,ymin=.732,ymax=.749,legend pos=south east,grid=both,legend style={font=\small}]
+\begin{axis}[width=.86\textwidth,height=67mm,xlabel={Score evaluations $B$},ylabel={Mean synthetic score},xmin=10,xmax=75,ymin=.732,ymax=.749,grid=both,legend style={at={(0.5,1.12)},anchor=south,legend columns=3,font=\small}]
 \addplot+[mark=*,thick] table[x=budget,y=random,col sep=space,restrict expr to domain={\thisrow{length}}{3:3}] {plot_data.tsv};
 \addlegendentry{Random search}
 \addplot+[mark=square*,thick] table[x=budget,y=coordinate,col sep=space,restrict expr to domain={\thisrow{length}}{3:3}] {plot_data.tsv};
@@ -294,36 +294,36 @@ To complement method-wise means, the two algorithms are compared at identical le
 \input{coordinate_landscape.tex}
 \input{gradient_moves.tex}
 
-\chapter{MATLAB-Ready Visualization and Research Audit}
+\chapter{MATLAB Visualization and Research Audit}
 \section{Purpose and evidentiary scope}
 The numerical experiment is implemented in Python, while its figures are specified independently in a MATLAB script to support inspection with standard mathematical engineering tools. The shared interchange file \texttt{matlab/synthetic\_summary.csv} contains twelve rows, one per length and evaluation-budget configuration. Each row retains the exact oracle score, aggregate development and held-out surrogate scores, mean regrets, optimum-hit counts and paired-seed summaries. Plotting is deliberately separated from the optimizer so changes in charting cannot alter the search procedure.
 
-The four figures in this chapter were rendered for this PDF from the recorded CSV using a Python chart renderer. The accompanying \texttt{matlab/generate\_thesis\_figures.m} program recreates the corresponding plots using \texttt{readtable}, \texttt{plot}, \texttt{bar}, \texttt{errorbar} and \texttt{exportgraphics}. MATLAB itself was not available for execution in the preparation environment. Thus these figures are reproducible MATLAB specifications, but independent execution and visual parity under MATLAB remain to be checked. There are no observations from a deployed language model.
+The four figures in this chapter are the committed native MATLAB exports in \texttt{evidence/native-matlab/}. The accompanying \texttt{matlab/generate\_thesis\_figures.m} program generated them from the recorded CSV using \texttt{readtable}, \texttt{plot}, \texttt{bar}, \texttt{errorbar} and \texttt{exportgraphics}. The render log records MATLAB R2026b and the source revision used. This confirms execution of the MATLAB plotting program; pixel-level parity with earlier Python-rendered copies has not been evaluated. There are no observations from a deployed language model.
 
 \section{Development objective against evaluation budget}
 \begin{figure}[htbp]\centering
-\includegraphics[width=.93\linewidth]{figures/matlab_score_budget.png}
-\caption{Recorded synthetic training scores for three-token prompts across score-call budgets, with the exhaustive oracle as a fixed reference. Graphic rendered from the saved CSV with an accompanying MATLAB regeneration script.}\label{fig:matlab-budget}
+\includegraphics[width=.93\linewidth]{../evidence/native-matlab/matlab_score_budget.png}
+\caption{Native MATLAB rendering of recorded synthetic training scores for three-token prompts across score-call budgets, with the exhaustive oracle as a fixed reference.}\label{fig:matlab-budget}
 \end{figure}
 The oracle line is not a third heuristic. It records the best of all $6^3=216$ possibilities, requiring exhaustive evaluation beyond the budget of the search methods. Both heuristic curves are based on fifty algorithmic seeds for each budget. Since each search retains its best observation, increasing its budget cannot lower its own best score in a given run. That monotonicity does not guarantee monotonic performance on independent held-out tasks.
 
 \section{Regret across prompt lengths}
 \begin{figure}[htbp]\centering
-\includegraphics[width=.93\linewidth]{figures/matlab_regret_length.png}
+\includegraphics[width=.93\linewidth]{../evidence/native-matlab/matlab_regret_length.png}
 \caption{Mean simple regret at a fixed budget of 36 scorer calls, comparing prompt lengths two, three and four. Lower regret means a smaller gap to the length-specific exact oracle.}\label{fig:matlab-regret}
 \end{figure}
 For each length $m$, simple regret is defined as $r_B=J_m^*-J(\hat p_B)$. The optimal score $J_m^*$ is recomputed separately for that length, so regret is interpretable within a length but is not an identical task across lengths. In particular, length changes both the number of candidate sequences and the weighted embedding geometry of the surrogate.
 
 \section{Held-out scores and model-selection limitation}
 \begin{figure}[htbp]\centering
-\includegraphics[width=.93\linewidth]{figures/matlab_train_holdout.png}
+\includegraphics[width=.93\linewidth]{../evidence/native-matlab/matlab_train_holdout.png}
 \caption{Development and held-out synthetic mean scores for the 3-token, 36-call condition. The held-out targets are fixed vectors, not task-labelled samples generated by an LLM.}\label{fig:matlab-heldout}
 \end{figure}
 A higher development objective need not imply a higher held-out objective. These target vectors were specified in code and do not constitute an externally sampled data distribution. The held-out comparison checks the analysis pipeline and illustrates the need for separation of prompt selection and evaluation. It is not an estimate of generalization to real prompts.
 
 \section{Paired-seed differences and uncertainty}
 \begin{figure}[htbp]\centering
-\includegraphics[width=.93\linewidth]{figures/matlab_paired_difference.png}
+\includegraphics[width=.93\linewidth]{../evidence/native-matlab/matlab_paired_difference.png}
 \caption{Exploratory paired-seed mean differences for three-token prompts. Error bars are percentile bootstrap intervals computed over algorithmic seed pairs. They are not confidence intervals for a population of LLM tasks.}\label{fig:matlab-pairs}
 \end{figure}
 For seed index $s$ and evaluation budget $B$ define $D_{s,B}=J(\hat p^{\rm coordinate}_{s,B})-J(\hat p^{\rm random}_{s,B})$. The plotted point is $50^{-1}\sum_{s=0}^{49}D_{s,B}$. The intervals resample the fifty paired differences with replacement. Because the same synthetic objective is reused across all seeds and budgets, treating these as independent examples of natural-language tasks would be incorrect. Exploratory $p$-values are not adjusted for testing twelve configurations, so statistical claims should be limited to this controlled computational setup.
@@ -336,7 +336,7 @@ python3 -m unittest discover -s tests -v
 # addpath('matlab')
 # generate_thesis_figures(pwd)
 \end{lstlisting}
-The MATLAB script generates four PNG files under \texttt{tex/figures}. To rebuild the dissertation afterwards, run XeLaTeX twice in the \texttt{tex} directory. A future handoff should archive the MATLAB release, rendered figures and a comparison against the Python-generated images to establish visualization parity independently.
+Running the MATLAB script from the repository root generates four PNG files under \texttt{tex/figures}; the separately committed native render evidence used in this chapter is retained under \texttt{evidence/native-matlab/} with its render log. To rebuild the dissertation, run XeLaTeX twice in the \texttt{tex} directory. A visual comparison against the older Python-rendered copies remains future validation if cross-renderer parity is claimed.
 
 \chapter{Prospective Real-Model Evaluation Protocol}
 \section{Status: proposed, not run}
@@ -398,6 +398,9 @@ The validated implementation uses Python 3.13 locally and is designed for Python
 python3 -m unittest discover -s tests -v
 python3 src/experiment.py
 python3 src/make_tables.py
+python3 src/paired_analysis.py
+python3 src/gradient_audit.py
+python3 src/landscape_audit.py
 cd tex
 xelatex -halt-on-error -interaction=nonstopmode thesis.tex
 xelatex -halt-on-error -interaction=nonstopmode thesis.tex
@@ -428,8 +431,9 @@ Discrete/continuous definitions&Written and mathematically inspectable&Superviso
 Analytical gradients and search formulas&Derived in Chapter 4&Independent mathematical proofreading\\
 Exhaustive finite oracles&Executed in synthetic benchmark&Recompute from pinned repository commit\\
 Heuristic comparisons&1200 synthetic records&Confirm CI and inspect code for hidden scoring calls\\
-Unit tests&22 passed locally&Verify on GitHub CI after push\\
-MATLAB-compatible figure sources&One MATLAB script and four charts prepared, MATLAB execution pending&Re-run figures in MATLAB and compare exports\\
+Unit tests&27 passed locally&Verify on GitHub CI after push\\
+Exhaustive landscape and gradient audits&Per-state gradient rankings and discrete terminal-state JSON for $m\in\{2,3,4\}$&Re-run both standard-library Python audit generators and review objective/tolerance assumptions\\
+MATLAB figure generation&Native MATLAB R2026b render log and four PNGs committed in \texttt{evidence/native-matlab/}&Compare against the earlier Python renders only if visual parity is claimed\\
 Reproducible XeLaTeX draft&Generated from tracked source&Check compiled PDF and department formatting\\
 Real LLM task data and inference&\textbf{Not performed}&Select datasets, acquire approvals, execute held-out protocol\\
 Human assessments&\textbf{Not performed}&Only if needed and institutionally approved\\

@@ -176,7 +176,7 @@
         "formal"
       ],
       "oracle_tie_count": 1,
-      "random_exact_optimum_hit_probability": 0.05416255116420629,
+      "random_exact_optimum_hit_probability": 0.0541625511642063,
       "random_exact_expected_best_score": 0.7343480375710372,
       "methods": {
         "random": {
@@ -214,7 +214,7 @@
         "formal"
       ],
       "oracle_tie_count": 1,
-      "random_exact_optimum_hit_probability": 0.10539152037979732,
+      "random_exact_optimum_hit_probability": 0.10539152037979733,
       "random_exact_expected_best_score": 0.7432718879533394,
       "methods": {
         "random": {
@@ -252,7 +252,7 @@
         "formal"
       ],
       "oracle_tie_count": 1,
-      "random_exact_optimum_hit_probability": 0.15384579792915934,
+      "random_exact_optimum_hit_probability": 0.15384579792915937,
       "random_exact_expected_best_score": 0.7454089870074966,
       "methods": {
         "random": {
@@ -290,7 +290,7 @@
         "formal"
       ],
       "oracle_tie_count": 1,
-      "random_exact_optimum_hit_probability": 0.28402306631785895,
+      "random_exact_optimum_hit_probability": 0.284023066317859,
       "random_exact_expected_best_score": 0.746479214962239,
       "methods": {
         "random": {
@@ -407,7 +407,7 @@
         "formal"
       ],
       "oracle_tie_count": 1,
-      "random_exact_optimum_hit_probability": 0.027405951337235845,
+      "random_exact_optimum_hit_probability": 0.02740595133723584,
       "random_exact_expected_best_score": 0.7484577868743296,
       "methods": {
         "random": {
