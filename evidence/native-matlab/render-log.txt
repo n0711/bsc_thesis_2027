@@ -1,0 +1,272 @@
+MATLAB release: R2026b
+Git commit: 31b3f9f79e35a75a5d0c394af7e38647332a4f09
+addpath(fullfile(repo, 'matlab'));
+generate_thesis_figures(runDir)
+
+source_csv =
+
+    'C:\Users\Charalampos Nadiotis\Documents\frederick\BSc Thesis - Final\bsc_thesis_2027\..\tp672cdd8f_b527_4528_84d6_3e29e124ff2f\matlab\synthetic_summary.csv'
+
+
+out_dir =
+
+    'C:\Users\Charalampos Nadiotis\Documents\frederick\BSc Thesis - Final\bsc_thesis_2027\..\tp672cdd8f_b527_4528_84d6_3e29e124ff2f\tex\figures'
+
+
+T =
+
+  12×14 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+    <strong>length</strong>    <strong>budget</strong>    <strong>oracle</strong>     <strong>random_train</strong>    <strong>coordinate_train</strong>    <strong>random_holdout</strong>    <strong>coordinate_holdout</strong>    <strong>random_regret</strong>    <strong>coordinate_regret</strong>    <strong>random_hits</strong>    <strong>coordinate_hits</strong>    <strong>paired_difference</strong>    <strong>paired_ci_lower</strong>    <strong>paired_ci_upper</strong>
+    <strong>______</strong>    <strong>______</strong>    <strong>_______</strong>    <strong>____________</strong>    <strong>________________</strong>    <strong>______________</strong>    <strong>__________________</strong>    <strong>_____________</strong>    <strong>_________________</strong>    <strong>___________</strong>    <strong>_______________</strong>    <strong>_________________</strong>    <strong>_______________</strong>    <strong>_______________</strong>
+
+      2         12      0.74019      0.73414           0.73926            0.70865             0.70739            0.0060523         0.00093637            11               30                0.005116           0.0018759          0.0094747   
+      2         24      0.74019      0.73868           0.74002            0.71119             0.71052            0.0015131         0.00017148            23               45               0.0013416          0.00076937          0.0019896   
+      2         36      0.74019      0.73938           0.74019            0.71792             0.70789           0.00081461                  0            27               50              0.00081461          0.00056821          0.0010571   
+      2         72      0.74019      0.73982           0.74019            0.71461             0.70789           0.00037253                  0            39               50              0.00037253          0.00020104         0.00057752   
+      3         12      0.74729      0.73612           0.74148            0.71029             0.71011             0.011177          0.0058148             2               10               0.0053622          -0.0012061           0.011966   
+      3         24      0.74729      0.74316           0.74666            0.71753              0.7187            0.0041357         0.00063165             2               25                0.003504           0.0011047          0.0065412   
+      3         36      0.74729      0.74572           0.74698            0.72101             0.71597            0.0015712         0.00031504             3               36               0.0012561          0.00091628          0.0016348   
+      3         72      0.74729      0.74633           0.74723            0.72222             0.71471           0.00096011         5.8155e-05            13               47              0.00090195          0.00068127          0.0011515   
+      4         12        0.754      0.73062            0.7459            0.71006             0.71561             0.023378          0.0080961             0                0                0.015282           0.0081302           0.022107   
+      4         24        0.754      0.74316           0.75309            0.71349             0.72474             0.010836         0.00090292             0                3               0.0099334           0.0064265           0.013758   
+      4         36        0.754      0.74859           0.75327            0.71463              0.7242            0.0054031         0.00072734             1               10               0.0046758           0.0024991          0.0073728   
+      4         72        0.754      0.75188           0.75367            0.72152              0.7224            0.0021196         0.00032511             4               30               0.0017945          0.00087547          0.0031952   
+
+	<a href="matlab:matlab.internal.math.edMsgPublish('T')">Get insights using Copilot</a>
+
+
+S =
+
+  4×14 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+    <strong>length</strong>    <strong>budget</strong>    <strong>oracle</strong>     <strong>random_train</strong>    <strong>coordinate_train</strong>    <strong>random_holdout</strong>    <strong>coordinate_holdout</strong>    <strong>random_regret</strong>    <strong>coordinate_regret</strong>    <strong>random_hits</strong>    <strong>coordinate_hits</strong>    <strong>paired_difference</strong>    <strong>paired_ci_lower</strong>    <strong>paired_ci_upper</strong>
+    <strong>______</strong>    <strong>______</strong>    <strong>_______</strong>    <strong>____________</strong>    <strong>________________</strong>    <strong>______________</strong>    <strong>__________________</strong>    <strong>_____________</strong>    <strong>_________________</strong>    <strong>___________</strong>    <strong>_______________</strong>    <strong>_________________</strong>    <strong>_______________</strong>    <strong>_______________</strong>
+
+      3         12      0.74729      0.73612           0.74148            0.71029             0.71011             0.011177          0.0058148             2               10               0.0053622          -0.0012061           0.011966   
+      3         24      0.74729      0.74316           0.74666            0.71753              0.7187            0.0041357         0.00063165             2               25                0.003504           0.0011047          0.0065412   
+      3         36      0.74729      0.74572           0.74698            0.72101             0.71597            0.0015712         0.00031504             3               36               0.0012561          0.00091628          0.0016348   
+      3         72      0.74729      0.74633           0.74723            0.72222             0.71471           0.00096011         5.8155e-05            13               47              0.00090195          0.00068127          0.0011515   
+
+	<a href="matlab:matlab.internal.math.edMsgPublish('S')">Get insights using Copilot</a>
+
+
+Sbud =
+
+    12
+    24
+    36
+    72
+
+
+order =
+
+     1
+     2
+     3
+     4
+
+
+S =
+
+  4×14 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+    <strong>length</strong>    <strong>budget</strong>    <strong>oracle</strong>     <strong>random_train</strong>    <strong>coordinate_train</strong>    <strong>random_holdout</strong>    <strong>coordinate_holdout</strong>    <strong>random_regret</strong>    <strong>coordinate_regret</strong>    <strong>random_hits</strong>    <strong>coordinate_hits</strong>    <strong>paired_difference</strong>    <strong>paired_ci_lower</strong>    <strong>paired_ci_upper</strong>
+    <strong>______</strong>    <strong>______</strong>    <strong>_______</strong>    <strong>____________</strong>    <strong>________________</strong>    <strong>______________</strong>    <strong>__________________</strong>    <strong>_____________</strong>    <strong>_________________</strong>    <strong>___________</strong>    <strong>_______________</strong>    <strong>_________________</strong>    <strong>_______________</strong>    <strong>_______________</strong>
+
+      3         12      0.74729      0.73612           0.74148            0.71029             0.71011             0.011177          0.0058148             2               10               0.0053622          -0.0012061           0.011966   
+      3         24      0.74729      0.74316           0.74666            0.71753              0.7187            0.0041357         0.00063165             2               25                0.003504           0.0011047          0.0065412   
+      3         36      0.74729      0.74572           0.74698            0.72101             0.71597            0.0015712         0.00031504             3               36               0.0012561          0.00091628          0.0016348   
+      3         72      0.74729      0.74633           0.74723            0.72222             0.71471           0.00096011         5.8155e-05            13               47              0.00090195          0.00068127          0.0011515   
+
+	<a href="matlab:matlab.internal.math.edMsgPublish('S')">Get insights using Copilot</a>
+
+
+f = 
+
+  <a href="matlab:helpPopup('matlab.ui.Figure')" style="font-weight:bold">Figure</a> (1) with properties:
+
+      Number: 1
+        Name: ''
+       Color: [1 1 1]
+    Position: [100 100 950 530]
+       Units: 'pixels'
+
+  Show <a href="matlab:if exist('f', 'var'), matlab.graphics.internal.getForDisplay('f', f, 'matlab.ui.Figure'), else, matlab.graphics.internal.getForDisplay('f'), end">all properties</a>
+
+
+S =
+
+  3×14 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+    <strong>length</strong>    <strong>budget</strong>    <strong>oracle</strong>     <strong>random_train</strong>    <strong>coordinate_train</strong>    <strong>random_holdout</strong>    <strong>coordinate_holdout</strong>    <strong>random_regret</strong>    <strong>coordinate_regret</strong>    <strong>random_hits</strong>    <strong>coordinate_hits</strong>    <strong>paired_difference</strong>    <strong>paired_ci_lower</strong>    <strong>paired_ci_upper</strong>
+    <strong>______</strong>    <strong>______</strong>    <strong>_______</strong>    <strong>____________</strong>    <strong>________________</strong>    <strong>______________</strong>    <strong>__________________</strong>    <strong>_____________</strong>    <strong>_________________</strong>    <strong>___________</strong>    <strong>_______________</strong>    <strong>_________________</strong>    <strong>_______________</strong>    <strong>_______________</strong>
+
+      2         36      0.74019      0.73938           0.74019            0.71792             0.70789           0.00081461                  0            27               50              0.00081461          0.00056821          0.0010571   
+      3         36      0.74729      0.74572           0.74698            0.72101             0.71597            0.0015712         0.00031504             3               36               0.0012561          0.00091628          0.0016348   
+      4         36        0.754      0.74859           0.75327            0.71463              0.7242            0.0054031         0.00072734             1               10               0.0046758           0.0024991          0.0073728   
+
+	<a href="matlab:matlab.internal.math.edMsgPublish('S')">Get insights using Copilot</a>
+
+
+Slen =
+
+     2
+     3
+     4
+
+
+order =
+
+     1
+     2
+     3
+
+
+S =
+
+  3×14 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+    <strong>length</strong>    <strong>budget</strong>    <strong>oracle</strong>     <strong>random_train</strong>    <strong>coordinate_train</strong>    <strong>random_holdout</strong>    <strong>coordinate_holdout</strong>    <strong>random_regret</strong>    <strong>coordinate_regret</strong>    <strong>random_hits</strong>    <strong>coordinate_hits</strong>    <strong>paired_difference</strong>    <strong>paired_ci_lower</strong>    <strong>paired_ci_upper</strong>
+    <strong>______</strong>    <strong>______</strong>    <strong>_______</strong>    <strong>____________</strong>    <strong>________________</strong>    <strong>______________</strong>    <strong>__________________</strong>    <strong>_____________</strong>    <strong>_________________</strong>    <strong>___________</strong>    <strong>_______________</strong>    <strong>_________________</strong>    <strong>_______________</strong>    <strong>_______________</strong>
+
+      2         36      0.74019      0.73938           0.74019            0.71792             0.70789           0.00081461                  0            27               50              0.00081461          0.00056821          0.0010571   
+      3         36      0.74729      0.74572           0.74698            0.72101             0.71597            0.0015712         0.00031504             3               36               0.0012561          0.00091628          0.0016348   
+      4         36        0.754      0.74859           0.75327            0.71463              0.7242            0.0054031         0.00072734             1               10               0.0046758           0.0024991          0.0073728   
+
+	<a href="matlab:matlab.internal.math.edMsgPublish('S')">Get insights using Copilot</a>
+
+
+f = 
+
+  <a href="matlab:helpPopup('matlab.ui.Figure')" style="font-weight:bold">Figure</a> (1) with properties:
+
+      Number: 1
+        Name: ''
+       Color: [1 1 1]
+    Position: [100 100 950 530]
+       Units: 'pixels'
+
+  Show <a href="matlab:if exist('f', 'var'), matlab.graphics.internal.getForDisplay('f', f, 'matlab.ui.Figure'), else, matlab.graphics.internal.getForDisplay('f'), end">all properties</a>
+
+
+S =
+
+  1×14 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+    <strong>length</strong>    <strong>budget</strong>    <strong>oracle</strong>     <strong>random_train</strong>    <strong>coordinate_train</strong>    <strong>random_holdout</strong>    <strong>coordinate_holdout</strong>    <strong>random_regret</strong>    <strong>coordinate_regret</strong>    <strong>random_hits</strong>    <strong>coordinate_hits</strong>    <strong>paired_difference</strong>    <strong>paired_ci_lower</strong>    <strong>paired_ci_upper</strong>
+    <strong>______</strong>    <strong>______</strong>    <strong>_______</strong>    <strong>____________</strong>    <strong>________________</strong>    <strong>______________</strong>    <strong>__________________</strong>    <strong>_____________</strong>    <strong>_________________</strong>    <strong>___________</strong>    <strong>_______________</strong>    <strong>_________________</strong>    <strong>_______________</strong>    <strong>_______________</strong>
+
+      3         36      0.74729      0.74572           0.74698            0.72101             0.71597            0.0015712         0.00031504             3               36               0.0012561          0.00091628          0.0016348   
+
+	<a href="matlab:matlab.internal.math.edMsgPublish('S')">Get insights using Copilot</a>
+
+
+vals =
+
+    0.7457    0.7210
+    0.7470    0.7160
+
+
+f = 
+
+  <a href="matlab:helpPopup('matlab.ui.Figure')" style="font-weight:bold">Figure</a> (1) with properties:
+
+      Number: 1
+        Name: ''
+       Color: [1 1 1]
+    Position: [100 100 950 530]
+       Units: 'pixels'
+
+  Show <a href="matlab:if exist('f', 'var'), matlab.graphics.internal.getForDisplay('f', f, 'matlab.ui.Figure'), else, matlab.graphics.internal.getForDisplay('f'), end">all properties</a>
+
+
+S =
+
+  4×14 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+    <strong>length</strong>    <strong>budget</strong>    <strong>oracle</strong>     <strong>random_train</strong>    <strong>coordinate_train</strong>    <strong>random_holdout</strong>    <strong>coordinate_holdout</strong>    <strong>random_regret</strong>    <strong>coordinate_regret</strong>    <strong>random_hits</strong>    <strong>coordinate_hits</strong>    <strong>paired_difference</strong>    <strong>paired_ci_lower</strong>    <strong>paired_ci_upper</strong>
+    <strong>______</strong>    <strong>______</strong>    <strong>_______</strong>    <strong>____________</strong>    <strong>________________</strong>    <strong>______________</strong>    <strong>__________________</strong>    <strong>_____________</strong>    <strong>_________________</strong>    <strong>___________</strong>    <strong>_______________</strong>    <strong>_________________</strong>    <strong>_______________</strong>    <strong>_______________</strong>
+
+      3         12      0.74729      0.73612           0.74148            0.71029             0.71011             0.011177          0.0058148             2               10               0.0053622          -0.0012061           0.011966   
+      3         24      0.74729      0.74316           0.74666            0.71753              0.7187            0.0041357         0.00063165             2               25                0.003504           0.0011047          0.0065412   
+      3         36      0.74729      0.74572           0.74698            0.72101             0.71597            0.0015712         0.00031504             3               36               0.0012561          0.00091628          0.0016348   
+      3         72      0.74729      0.74633           0.74723            0.72222             0.71471           0.00096011         5.8155e-05            13               47              0.00090195          0.00068127          0.0011515   
+
+	<a href="matlab:matlab.internal.math.edMsgPublish('S')">Get insights using Copilot</a>
+
+
+Sbud =
+
+    12
+    24
+    36
+    72
+
+
+order =
+
+     1
+     2
+     3
+     4
+
+
+S =
+
+  4×14 <a href="matlab:helpPopup('table')" style="font-weight:bold">table</a>
+
+    <strong>length</strong>    <strong>budget</strong>    <strong>oracle</strong>     <strong>random_train</strong>    <strong>coordinate_train</strong>    <strong>random_holdout</strong>    <strong>coordinate_holdout</strong>    <strong>random_regret</strong>    <strong>coordinate_regret</strong>    <strong>random_hits</strong>    <strong>coordinate_hits</strong>    <strong>paired_difference</strong>    <strong>paired_ci_lower</strong>    <strong>paired_ci_upper</strong>
+    <strong>______</strong>    <strong>______</strong>    <strong>_______</strong>    <strong>____________</strong>    <strong>________________</strong>    <strong>______________</strong>    <strong>__________________</strong>    <strong>_____________</strong>    <strong>_________________</strong>    <strong>___________</strong>    <strong>_______________</strong>    <strong>_________________</strong>    <strong>_______________</strong>    <strong>_______________</strong>
+
+      3         12      0.74729      0.73612           0.74148            0.71029             0.71011             0.011177          0.0058148             2               10               0.0053622          -0.0012061           0.011966   
+      3         24      0.74729      0.74316           0.74666            0.71753              0.7187            0.0041357         0.00063165             2               25                0.003504           0.0011047          0.0065412   
+      3         36      0.74729      0.74572           0.74698            0.72101             0.71597            0.0015712         0.00031504             3               36               0.0012561          0.00091628          0.0016348   
+      3         72      0.74729      0.74633           0.74723            0.72222             0.71471           0.00096011         5.8155e-05            13               47              0.00090195          0.00068127          0.0011515   
+
+	<a href="matlab:matlab.internal.math.edMsgPublish('S')">Get insights using Copilot</a>
+
+
+f = 
+
+  <a href="matlab:helpPopup('matlab.ui.Figure')" style="font-weight:bold">Figure</a> (1) with properties:
+
+      Number: 1
+        Name: ''
+       Color: [1 1 1]
+    Position: [100 100 950 530]
+       Units: 'pixels'
+
+  Show <a href="matlab:if exist('f', 'var'), matlab.graphics.internal.getForDisplay('f', f, 'matlab.ui.Figure'), else, matlab.graphics.internal.getForDisplay('f'), end">all properties</a>
+
+
+lower_span =
+
+    0.0066
+    0.0024
+    0.0003
+    0.0002
+
+
+upper_span =
+
+    0.0066
+    0.0030
+    0.0004
+    0.0002
+
+Four synthetic result figures written to tex/figures
+outDir = fullfile(runDir, 'tex', 'figures');
+names = {'matlab_score_budget.png', 'matlab_regret_length.png', ...
+         'matlab_train_holdout.png', 'matlab_paired_difference.png'};
+
+for k = 1:numel(names)
+    img = imread(fullfile(outDir, names{k}));
+    assert(min(img(:)) < max(img(:)), 'Blank figure: %s', names{k});
+    fprintf('PASS  %s  (%d x %d pixels)\n', names{k}, size(img,2), size(img,1));
+end
+diary off
+PASS  matlab_score_budget.png  (1840 x 1115 pixels)
+PASS  matlab_regret_length.png  (1780 x 1117 pixels)
+PASS  matlab_train_holdout.png  (1791 x 1069 pixels)
+PASS  matlab_paired_difference.png  (1797 x 1117 pixels)
