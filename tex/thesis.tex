@@ -102,6 +102,11 @@ Given $n$ demonstrations and $k$ available positions, selecting ordered examples
 \section{Soft prompts and continuous optimization}
 Lester and colleagues study learned, continuous prompt vectors while keeping the underlying model frozen \cite{lester2021}. Unlike ordinary vocabulary tokens, these vectors admit infinitesimal perturbations and gradient updates. Prompt tuning therefore provides a concrete example of continuous optimization at the input interface. The present benchmark does not train a soft prompt and cannot reproduce those results, it uses a deliberately smaller differentiable function to validate the mathematical bridge.
 
+\section{Cross-domain methodological precedent: cyber-attack detection}
+Thoma and Hadjicostis investigate the detection of collaborative cyber-attacks through correlated behaviour in distributed network traffic \cite{thoma2021}. An earlier University of Cyprus research seminar identifies hidden Markov modelling, mathematical reasoning and simulations as components of this research programme \cite{thoma2016seminar}. These publications are not studies of prompt engineering, language-model accuracy or token optimization. Their relevance here is limited to an experimental-design principle: predictions from a specified mathematical model require comparison with observed outcomes under stated assumptions.
+
+In the present dissertation, the corresponding check compares the first-order embedding-space estimate for a token replacement with the finite score change measured by the synthetic objective. Agreement is assessed using directed one-token moves, sign agreement and neighbourhood rankings. This comparison is a methodological analogy rather than an adaptation of Thoma and Hadjicostis's detector. No hidden Markov model, network-attack data or cybersecurity performance claim is introduced into the benchmark.
+
 \section{Gap addressed by this dissertation}
 A great deal of prior work evaluates effective prompting techniques using actual models. This thesis takes a narrower methodological role: it constructs an exact, finite reference problem whose optimization and measurement properties can be independently checked. Its value lies in transparent accounting for oracle optima, score calls, random-search expectations and evidence limitations. Such a benchmark is a validation stage, not an alternative to real-model experiments.
 
@@ -450,6 +455,8 @@ Supervisor and academic acceptance&\textbf{Not confirmed}&Document review and fi
 \bibitem{zhao2021} Zhao, Z., Wallace, E., Feng, S., Klein, D., and Singh, S. (2021). Calibrate Before Use: Improving Few-Shot Performance of Language Models. \emph{ICML}, 12697--12706.
 \bibitem{zhou2023} Zhou, Y., et al. (2023). Large Language Models Are Human-Level Prompt Engineers. \emph{ICLR}.
 \bibitem{liu2023} Liu, P., et al. (2023). Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing. \emph{ACM Computing Surveys}, 55(9). \href{https://doi.org/10.1145/3560815}{doi:10.1145/3560815}.
+\bibitem{thoma2021} Thoma, M., and Hadjicostis, C. N. (2021). Detection of collaborative misbehaviour in distributed cyber-attacks. \emph{Computer Communications}, 174, 28--41. \href{https://doi.org/10.1016/j.comcom.2021.04.013}{doi:10.1016/j.comcom.2021.04.013}.
+\bibitem{thoma2016seminar} Thoma, M. (2016). \emph{Detection of Collaborative Cyber-Attacks through Correlation and Time Dependency Analysis}. Department of Electrical and Computer Engineering, University of Cyprus, research seminar abstract, 2 March 2016. \url{https://www.ucy.ac.cy/ece/wp-content/uploads/sites/41/2021/06/Marios_Thoma_-_02.03.2016.pdf}.
 \bibitem{nadiotis2026} Nadiotis, C. (2026). \emph{Prompt Engineering as a Discrete-Continuous Optimization Problem: A Mathematical Perspective Using Discrete Mathematics and Calculus}. Author-provided short article, submitted in October 2026, publication status not independently verified.
 \end{thebibliography}
 \end{document}
