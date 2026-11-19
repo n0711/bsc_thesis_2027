@@ -18,3 +18,21 @@ Scores here are fixed-surrogate sigmoid probabilities, not real LLM accuracies. 
 ## Additional milestone: paired-seed analysis (2026-11-03)
 
 Implemented `src/paired_analysis.py` and five additional unit tests (22 total). The analysis pairs coordinate and random search by configuration and seed, validates exact objective-call budgets, computes mean differences, paired bootstrap percentile intervals, and exploratory exact two-sided sign-test p-values. Twelve paired configurations are exported to `results/paired_analysis.json` and `tex/paired_results.tex`, included in the compiled dissertation. These comparisons use a fixed synthetic surrogate, they are not independent LLM task replications. Unadjusted p-values are descriptive only.
+
+## Additional milestone: formal second-order certificate audit (2026-11-19)
+
+A new globally valid Hessian operator-norm bound is derived for the **fixed
+two-dimensional logistic surrogate**, not for LLM scoring. The resulting
+Taylor interval certifies 19,582 of 29,520 directed one-token moves as strict
+improvements or decreases. The remaining 9,938 moves are inconclusive.
+The exhaustive checker finds zero sign or remainder-bound violations on
+these finite spaces. Four additional regression tests probe the inequality
+at off-grid points and verify exact per-length counts.
+
+Files: `tex/taylor_certificates.tex`, `src/taylor_certificate.py`,
+`tests/test_taylor_certificate.py`, `docs/claim_ledger.md`.
+The existing experiment outputs have not been edited. CI runs the
+certificate audit and uploads the JSON report. These are author-side
+verification steps and not independent peer review, external task
+generalization or a real-model benchmark. Supervisor review and CI
+completion must be checked separately.
