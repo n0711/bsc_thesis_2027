@@ -1,0 +1,14 @@
+\begin{table}[htbp]
+\centering\small
+\caption{Exact synthetic target-shift audit. 'Ordered' counts unordered prompt pairs with distinct development scores. 'Cert.' counts provably preserved development orderings; 'Reversed' counts observed held-out rank inversions.}
+\label{tab:target-transfer}
+\begin{tabular}{rrrrrrr}
+\toprule
+$m$ & $|P_m|$ & Gap span & Train-oracle $r_H$ & Ordered & Cert. & Reversed \\
+\midrule
+2 & 36 & 0.211812 & 0.057181 & 630 & 64 & 149\\
+3 & 216 & 0.218541 & 0.057159 & 23220 & 940 & 5487\\
+4 & 1296 & 0.224928 & 0.056911 & 839145 & 14374 & 205554\\
+\bottomrule
+\end{tabular}
+\end{table}
