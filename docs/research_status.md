@@ -87,3 +87,20 @@ Evidence and source: `src/target_transfer_audit.py`,
 `tests/test_target_transfer_audit.py`. CI will regenerate
 and compare outputs. There is no real-model inference, sampled task
 distribution, causal claim, or independent peer review.
+
+## Next hybrid milestone: frozen local inference interface (2026-11-19)
+
+Implemented a local Ollama pilot runner, fixed two-task schemas,
+manifest hashes for raw dataset and disjoint development/test split
+records, model digest validation, strict loopback-only inference, and
+paired prediction exports compatible with existing offline scoring.
+Thirteen new unit tests exercise its logic with in-memory model
+responses and deliberately corrupted fixtures. This does NOT
+constitute an observed model benchmark.
+
+Artifacts: `src/local_model_pilot.py`,
+`tests/test_local_model_pilot.py`,
+`docs/local_model_pilot.md`,
+`docs/local_model_spec.template.json`, and a future-method section
+in the dissertation. Real model access, licensed data, development
+search provenance, budgets and supervisor approval remain blockers.
