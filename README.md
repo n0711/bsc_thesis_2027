@@ -10,7 +10,7 @@ This project extends the author's **submitted October 2026 theoretical article**
 - Exact finite-space optimization (6-symbol alphabet, prompt lengths 2/3/4).
 - Equal-budget comparison: random search and restarting first-improvement coordinate search, 12/24/36/72 score evaluations, 50 seeds each.
 - 1,200 synthetic observations, JSON/CSV evidence, exact random-search hit probabilities and expected best-score formula.
-- 27 local Python unit tests including gradient ranking, discrete stopping states, finite differences and strict evaluation accounting.
+- 31 local Python unit tests including gradient ranking, discrete stopping states, finite differences and strict evaluation accounting.
 - Offline output scorer for **future externally supplied actual model predictions**, does not perform model inference.
 
 ## Reproduction
@@ -24,6 +24,7 @@ python3 src/make_tables.py
 python3 src/paired_analysis.py
 python3 src/gradient_audit.py
 python3 src/landscape_audit.py
+python3 src/taylor_certificate.py
 cd tex
 xelatex -halt-on-error -interaction=nonstopmode thesis.tex
 xelatex -halt-on-error -interaction=nonstopmode thesis.tex
@@ -37,11 +38,11 @@ The tested surrogate is **not an LLM**. Scores represent probabilities from fixe
 
 ## Layout
 
-`tex/` dissertation source and generated tables/plot, `src/` reproducible experiments and scoring, `tests/` unit tests, `results/` synthetic outputs, `docs/` protocol and status, `.github/workflows/` verification configuration.
+`tex/` dissertation source and generated tables/plot, `src/` reproducible experiments and scoring, `tests/` unit tests, `results/` synthetic outputs, `docs/` protocol, status and claim-to-evidence ledger, `.github/workflows/` verification configuration.
 
 ## Paired-seed analysis milestone
 
-Run `python3 src/paired_analysis.py` after `python3 src/experiment.py`. The gradient and landscape audit scripts also emit per-state JSON evidence under `results/` and matching LaTeX tables in `tex/`; their outputs use stable ordering and normalized numeric precision. The 27-test suite checks these audit behaviors. These analyses operate only on the synthetic objective; the paired-seed sign-test p-values are unadjusted across twelve configurations and must not be interpreted as real-LLM evidence.
+Run `python3 src/paired_analysis.py` after `python3 src/experiment.py`. The gradient and landscape audit scripts also emit per-state JSON evidence under `results/` and matching LaTeX tables in `tex/`; their outputs use stable ordering and normalized numeric precision. The 31-test suite additionally checks the exact second-order Taylor certificate and off-grid inequalities. These analyses operate only on the synthetic objective; the paired-seed sign-test p-values are unadjusted across twelve configurations and must not be interpreted as real-LLM evidence.
 
 ## January 2027 preliminary presentation and MATLAB figures
 
@@ -53,3 +54,22 @@ Run `python3 src/paired_analysis.py` after `python3 src/experiment.py`. The grad
 - The preliminary slide deck is not an approved or graded university presentation. The academic supervisor is Dr. Stephania Loizidou, as identified by the student. Review and approval are still pending.
 
 The document and slides use comma punctuation and short hyphens in prose, as requested.
+
+## Proof-backed discrete-move certification (2026-11-19)
+
+The dissertation now proves a **global gradient-Lipschitz / second-order Taylor
+bound** for the fixed mean-logistic surrogate, stronger than using the
+first-order gradient merely as a rank heuristic. Applying this proof to all
+29,520 directed one-token replacements certifies **10,479 strict increases**
+and **9,103 strict decreases**, with **9,938 inconclusive replacements**
+(66.33% certified coverage). The previous 1,004 first-order false-positive
+predictions are distinguished explicitly from certified predictions. A
+deterministic exhaustive script and four regression tests reproduce the
+counts and check the bound at off-grid vectors.
+
+The methodology is informed by *A Society of AI Scientists* (Ahmad et al.,
+alphaXiv, 2026): see `docs/claim_ledger.md` for precise claim, code, check
+and limitation mappings. The cited preprint is methodological inspiration,
+not a source for the Taylor theorem or surrogate measurements. The
+certificate **does not** apply to deployed LLMs without new assumptions
+and evidence. Supervisor review remains pending.
