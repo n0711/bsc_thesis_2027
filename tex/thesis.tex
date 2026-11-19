@@ -358,7 +358,15 @@ Compare at least a fixed author-written instruction, uniform random candidate se
 For classification or exact-format extraction, choose one primary score before evaluating. Exact match is defined by $\ind[\hat y_i=y_i]$ under pre-declared normalization, validity rate is $n^{-1}\sum_i\ind[C(\hat y_i)=1]$. Accuracy should not be used as a synonym for a surrogate probability. When examples are paired across prompt methods, use paired intervals or an appropriate paired resampling procedure. Report per-task scores and failure categories, an aggregate alone may conceal a method that fails on one task.
 
 \section{Offline results evaluator}
-\texttt{src/score\_outputs.py} accepts JSON Lines records that must contain a task ID, example ID, model identifier, prompt identifier, reference string, prediction string, schema-validity Boolean, token counts and latency. It calculates grouped exact-match rates, validity rates and mean usage. It \emph{does not} call a model, fabricate observations, verify the provenance of externally supplied records or assert a result without input data. That boundary is intentional. A later evaluation should preserve raw response files, prompt templates, hashes, model parameters and a signed run manifest.
+\texttt{src/score\_outputs.py} accepts JSON Lines records that must contain a task ID, example ID, model identifier, prompt identifier, reference string, prediction string, schema-validity Boolean, token counts and latency. It calculates grouped exact-match rates, validity rates and mean usage. The additional
+\texttt{src/compare\_heldout.py} enforces one-to-one matching of
+identical model, task and example identifiers between a frozen baseline
+and a selected candidate. It rejects missing examples and inconsistent
+reference outputs, and computes paired validity-adjusted exact-match
+differences, schema-validity differences, token and latency differences,
+and a conditional exact discordance test. Comparisons use example IDs as
+pairs, not optimizer seed IDs. These are analysis interfaces with
+unit-test fixtures, not observed model evaluation results. It \emph{does not} call a model, fabricate observations, verify the provenance of externally supplied records or assert a result without input data. That boundary is intentional. A later evaluation should preserve raw response files, prompt templates, hashes, model parameters and a signed run manifest.
 
 \section{Ethics and reproducibility checks}
 Review dataset licenses, use non-sensitive input data, avoid including private prompts or personal records in a public repository, and consult the supervisor on ethics requirements before collecting human judgments. Reproducibility means another researcher can obtain the same software behavior and inspect raw evidence, it does not imply access to a proprietary model version is guaranteed indefinitely.
