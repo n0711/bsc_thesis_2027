@@ -118,8 +118,7 @@ exports `predictions.jsonl`, grouped scores, paired comparisons and
 a run provenance file. It aborts on missing model identity, token
 counts, incomplete response or changed manifest.
 
-**No real-model runs have been carried out.** All new CI tests use an
-injected in-memory response transport, tagged explicitly as
+**No real-model runs have been carried out.** All new CI tests use injected in-memory responses or offline freeze/verify commands, tagged explicitly as
 `mock_transport_fixture_not_real_model`. The manifest and tests do
 not demonstrate that the held-out set was never viewed, that the
 candidate was genuinely selected by coordinate search or that
