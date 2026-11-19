@@ -1,6 +1,7 @@
 """Local-model protocol tests use in-memory fixtures, never an LLM."""
 import copy
 import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -11,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from local_model_pilot import (
-    canonical, digest, freeze, normalize, object_hash, partition_hashes,
+    _actual_transport, canonical, digest, freeze, normalize, object_hash, partition_hashes,
     read_dataset, run_evaluation, validate_endpoint, validate_rows,
     validate_spec, verify_manifest, verify_ollama_digest, write_outputs,
 )
@@ -146,6 +147,8 @@ class LocalModelPilotTests(unittest.TestCase):
                          ('{"value":"AA"}', True))
         self.assertFalse(normalize(self.spec["tasks"]["field"],
                                    '{"value":"AA","note":"x"}')[1])
+        self.assertFalse(normalize(self.spec["tasks"]["field"],
+                                   '{"value":"AA","value":"BB"}')[1])
 
     def test_fixture_run_is_paired_and_not_model_evidence(self):
         with patch("local_model_pilot.http_json",
@@ -224,6 +227,64 @@ class LocalModelPilotTests(unittest.TestCase):
             path.write_text("not json\n", encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "invalid JSONL"):
                 read_dataset(path)
+
+
+    def test_local_generation_request_and_task_json_mode(self):
+        captured = []
+        def fake_http(url, payload):
+            captured.append((url, payload))
+            return {"response": "yes"}
+        with patch("local_model_pilot.http_json", side_effect=fake_http):
+            _actual_transport(self.spec, self.spec["tasks"]["sentiment"],
+                              {"system": "A", "input": "B"},
+                              "http://127.0.0.1:11434")
+            _actual_transport(self.spec, self.spec["tasks"]["field"],
+                              {"system": "A", "input": "B"},
+                              "http://127.0.0.1:11434")
+        self.assertEqual(len(captured), 2)
+        self.assertEqual(captured[0][0],
+                         "http://127.0.0.1:11434/api/generate")
+        self.assertEqual(captured[0][1]["prompt"], "B")
+        self.assertEqual(captured[0][1]["system"], "A")
+        self.assertEqual(captured[0][1]["options"],
+                         self.spec["decoding"])
+        self.assertFalse(captured[0][1]["stream"])
+        self.assertNotIn("format", captured[0][1])
+        self.assertEqual(captured[1][1]["format"], "json")
+
+    def test_freeze_and_verify_cli_without_any_inference(self):
+        with tempfile.TemporaryDirectory() as folder:
+            directory = Path(folder)
+            dataset = directory / "data.jsonl"
+            spec_file = directory / "spec.json"
+            manifest = directory / "frozen.json"
+            dataset.write_text("".join(
+                canonical(row) + "\\n" for row in self.rows
+            ), encoding="utf-8")
+            spec_file.write_text(
+                json.dumps(self.spec), encoding="utf-8")
+            cmd = [sys.executable, str(ROOT / "src/local_model_pilot.py")]
+            freeze_cmd = cmd + [
+                "freeze", "--dataset", str(dataset), "--spec",
+                str(spec_file), "--manifest", str(manifest),
+            ]
+            result = subprocess.run(
+                freeze_cmd, capture_output=True, text=True, check=False)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn("not a model evaluation", result.stdout)
+            self.assertTrue(manifest.is_file())
+            verify_cmd = cmd + [
+                "verify", "--dataset", str(dataset),
+                "--manifest", str(manifest),
+            ]
+            result = subprocess.run(
+                verify_cmd, capture_output=True, text=True, check=False)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn("verified", result.stdout)
+            result = subprocess.run(
+                freeze_cmd, capture_output=True, text=True, check=False)
+            self.assertNotEqual(result.returncode, 0)
+
 
 
 if __name__ == "__main__":
