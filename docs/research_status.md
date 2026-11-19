@@ -55,3 +55,16 @@ New files: `src/independent_referee.py`,
 The peer-referee principle is methodologically inspired by *A Society
 of AI Scientists*, not a source of either mathematical or numerical
 findings. No external models were queried.
+
+## Additional milestone: offline paired real-model evaluation interface (2026-11-19)
+
+The prospective held-out evaluation can now reject unequal example IDs
+and reference labels when comparing baseline and selected prompts,
+calculate validity-adjusted and plain exact match separately, and
+record paired input/output-token and latency differences. All examples
+in the tests are invented fixtures; `src/compare_heldout.py` neither
+invokes a model nor verifies external prediction provenance. The offline
+scorer additionally rejects non-finite latency and empty identifiers.
+Seven unit tests cover the new comparison and validation paths.
+The protocol in `docs/real_model_protocol.md` has been expanded with
+predeclared splits, input provenance and executable referee objections.
