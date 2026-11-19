@@ -40,6 +40,17 @@ jobs:
           path: taylor_certificate_report.json
           if-no-files-found: ignore
 
+      - name: Execute independent statistical and claim referee
+        run: python3 src/independent_referee.py > independent_referee_report.json
+
+      - name: Retain independent referee findings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: independent-referee-synthetic
+          path: independent_referee_report.json
+          if-no-files-found: ignore
+
       - name: Regenerate experiment results, tables, and audits
         run: |
           python3 src/experiment.py
