@@ -10,3 +10,8 @@ __pycache__/
 *.fdb_latexmk
 *.synctex.gz
 .DS_Store
+
+# Never commit external datasets, inference traces, or unverified live-model evidence.
+private_pilot/
+runs/real_model/
+evidence/real_model/

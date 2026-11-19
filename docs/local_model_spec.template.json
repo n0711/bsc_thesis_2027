@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "protocol_id": "REPLACE_WITH_APPROVED_PROTOCOL_ID",
+  "dataset_source": "REPLACE_WITH_LICENSED_DATASET_VERSION_AND_URL",
+  "dataset_license": "REPLACE_WITH_DATASET_LICENSE",
+  "model": "REPLACE_WITH_OLLAMA_MODEL_TAG",
+  "model_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "tasks": {
+    "classification": {
+      "kind": "classification",
+      "labels": [
+        "yes",
+        "no"
+      ]
+    },
+    "extraction": {
+      "kind": "json_field"
+    }
+  },
+  "prompts": {
+    "author_written": "You are evaluating a controlled research task. For classification output exactly yes or no. For extraction output exactly a JSON object with one string key named value.",
+    "coordinate_selected": "REPLACE_WITH_DEVELOPMENT_SELECTED_FROZEN_PROMPT"
+  },
+  "decoding": {
+    "temperature": 0,
+    "seed": 2027,
+    "num_predict": 64
+  }
+}

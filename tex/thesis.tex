@@ -370,6 +370,8 @@ and a conditional exact discordance test. Comparisons use example IDs as
 pairs, not optimizer seed IDs. These are analysis interfaces with
 unit-test fixtures, not observed model evaluation results. It \emph{does not} call a model, fabricate observations, verify the provenance of externally supplied records or assert a result without input data. That boundary is intentional. A later evaluation should preserve raw response files, prompt templates, hashes, model parameters and a signed run manifest.
 
+\input{local_model_pilot.tex}
+
 \section{Ethics and reproducibility checks}
 Review dataset licenses, use non-sensitive input data, avoid including private prompts or personal records in a public repository, and consult the supervisor on ethics requirements before collecting human judgments. Reproducibility means another researcher can obtain the same software behavior and inspect raw evidence, it does not imply access to a proprietary model version is guaranteed indefinitely.
 

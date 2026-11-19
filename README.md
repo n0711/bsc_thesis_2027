@@ -10,7 +10,7 @@ This project extends the author's **submitted October 2026 theoretical article**
 - Exact finite-space optimization (6-symbol alphabet, prompt lengths 2/3/4).
 - Equal-budget comparison: random search and restarting first-improvement coordinate search, 12/24/36/72 score evaluations, 50 seeds each.
 - 1,200 synthetic observations, JSON/CSV evidence, exact random-search hit probabilities and expected best-score formula.
-- 52 local Python unit tests including gradient ranking, discrete stopping states, finite differences and strict evaluation accounting.
+- 67 local Python unit tests including gradient ranking, discrete stopping states, finite differences and strict evaluation accounting.
 - Offline output scorer for **future externally supplied actual model predictions**, does not perform model inference.
 
 ## Reproduction
@@ -44,7 +44,7 @@ The tested surrogate is **not an LLM**. Scores represent probabilities from fixe
 
 ## Paired-seed analysis milestone
 
-Run `python3 src/paired_analysis.py` after `python3 src/experiment.py`. The gradient and landscape audit scripts also emit per-state JSON evidence under `results/` and matching LaTeX tables in `tex/`; their outputs use stable ordering and normalized numeric precision. The 52-test suite additionally checks the exact second-order Taylor certificate and off-grid inequalities. These analyses operate only on the synthetic objective; the paired-seed sign-test p-values are unadjusted across twelve configurations and must not be interpreted as real-LLM evidence.
+Run `python3 src/paired_analysis.py` after `python3 src/experiment.py`. The gradient and landscape audit scripts also emit per-state JSON evidence under `results/` and matching LaTeX tables in `tex/`; their outputs use stable ordering and normalized numeric precision. The 67-test suite additionally checks the exact second-order Taylor certificate and off-grid inequalities. These analyses operate only on the synthetic objective; the paired-seed sign-test p-values are unadjusted across twelve configurations and must not be interpreted as real-LLM evidence.
 
 ## January 2027 preliminary presentation and MATLAB figures
 
@@ -139,3 +139,28 @@ are in `tex/target_transfer_theorem.tex`.
 **Important limitation:** this is fixed synthetic target-shift analysis,
 not real-model performance, out-of-distribution testing with a sampled
 task population, or an LLM generalization guarantee.
+
+## Local-model hybrid pilot - implemented, NOT EXECUTED (2026-11-19)
+
+`src/local_model_pilot.py` can now freeze a two-task dataset and an
+author-written/candidate prompt pair into a SHA-256-committed manifest,
+verify dataset and prompt integrity, check a local Ollama model digest,
+and invoke a pinned model using `/api/generate` on loopback only.
+The outputs follow the established `src/score_outputs.py` and
+`src/compare_heldout.py` schema with paired example IDs, response
+validity, actual reported token counts, observed request latency and
+a separate run provenance manifest.
+
+The fifteen new tests use in-memory mock responses and a freeze/verify CLI integration test that invokes no model.
+**No real LLM inference has been run, no external dataset has been
+selected, and no performance numbers have been added to this repository.**
+A prompt named `coordinate_selected` is only a frozen candidate
+placeholder until its separate development-only search trajectory and
+equal search budgets are independently verified. A checksum cannot
+guarantee that the test labels were never observed.
+
+See `docs/local_model_pilot.md` for commands, limitations and all
+remaining prerequisites. `docs/local_model_spec.template.json` is
+deliberately incomplete and must be configured with an approved model,
+dataset and frozen candidate prompt. `private_pilot/` is gitignored
+to avoid committing licensed data and model outputs.
