@@ -1,0 +1,71 @@
+\chapter{Distributed Prompt Search: A Formal Research Outlook}
+\label{app:distributed-prompt-search}
+
+\section{Connection to distributed autonomous systems}
+The optimization problem developed in this dissertation admits a limited but
+precise distributed interpretation. Instead of one process evaluating every
+candidate prompt, several independent workers can evaluate subsets of the
+same finite prompt space. Their observations can be exchanged after delays or
+connectivity interruptions. This is an \emph{outlook}, not an additional
+experiment on autonomous robots, a deployed distributed system or a real
+language model. It leaves the dissertation's core research questions and
+reported results unchanged.
+
+\section{Shared objective and deterministic reconciliation}
+Let $\Pspace=\Vocab^m$ be a fixed finite set of prompts and let
+$F:\Pspace\rightarrow\R$ be a fixed, deterministic scoring function.
+Worker $i$ evaluates a subset $S_i\subseteq\Pspace$ and publishes records
+$r(p)=(F(p),p)$ for $p\in S_i$. Fix one total order on records: first
+compare real-valued scores, and break equal scores lexicographically by the
+prompt tuple. Let $\bot$ represent the absence of an observation, below all
+valid records. For two records or empty states, define
+\begin{equation}
+  a\sqcup b=\max_{\preceq}\{a,b\}.
+  \label{eq:distributed-join}
+\end{equation}
+The ordering convention is fixed across all workers, and every score is
+assumed finite. Thus the merge cannot depend on message arrival order.
+
+\begin{proposition}[Order-independent best-observation convergence]
+\label{prop:distributed-best}
+The merge in Equation~\eqref{eq:distributed-join} is commutative, associative
+and idempotent. If every record in the finite union
+$S=\bigcup_{i=1}^{k}S_i$ eventually reaches each worker, every worker's
+merged state converges to the same record
+\[
+  r^*=\max_{\preceq}\bigl\{(F(p),p):p\in S\bigr\}.
+\]
+If $S=\Pspace$, this record has the globally optimal score for the defined
+finite surrogate. Otherwise it is only the best among evaluated candidates.
+\end{proposition}
+\begin{proof}
+The maximum of two elements under a total order is unchanged by swapping
+its operands, reparenthesizing repeated maxima or repeating an operand.
+Hence the three algebraic properties hold. By associativity and
+commutativity, the merge of all delivered observations equals their global
+maximum independently of delivery order. Idempotence makes duplicates
+irrelevant. Once every record from $S$ has been received, each worker has
+that same maximum. If the union covers the entire finite space, its maximum
+is the exact oracle by definition. No bound on the time until eventual
+delivery is implied.
+\end{proof}
+
+\section{Limits and possible doctoral extension}
+This is a standard maximum-merge property, not a newly invented consensus
+algorithm, a convergence-time bound or a novel result in distributed
+systems. The stated guarantee does not apply if relevant records are
+permanently lost, if workers use different objective versions or scoring
+rules, or if score evaluations are stochastic without a reproducible
+comparison policy. Conflicting search histories, resource-constrained
+scheduling, network overhead, stale task information and communication-aware
+search policies remain open problems.
+
+The repository's \texttt{src/distributed\_prompt\_merge.py} implements the
+record merge, with algebraic regression tests in
+\texttt{tests/test\_distributed\_prompt\_merge.py}. Those tests check
+software behavior on invented scores only. They do not establish physical
+link reliability, distributed-autonomy performance, LLM accuracy or
+communication efficiency. Future work could investigate communication
+budgets and partial-state recovery when multiple autonomous agents optimize
+shared decision policies, while retaining rigorous separations among formal
+properties, synthetic evidence and physical validation.
