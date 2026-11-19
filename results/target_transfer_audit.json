@@ -1,0 +1,93 @@
+{
+  "claim": "exact_target_shift_and_regret_transfer_on_finite_space",
+  "evidence_type": "synthetic_surrogate_not_LLM",
+  "lengths": [
+    {
+      "analytic_uniform_gap_upper_bound": 0.230290650243,
+      "candidate_count": 36,
+      "certified_order_errors": 0,
+      "certified_order_preserving_pairs": 64,
+      "comparable_unordered_pairs": 630,
+      "exact_gap_oscillation": 0.211812435347,
+      "heldout_oracle_prompt": [
+        "verify",
+        "verify"
+      ],
+      "heldout_oracle_score": 0.765069874795,
+      "heldout_regret_of_training_oracle": 0.057180660758,
+      "length": 2,
+      "maximum_absolute_regret_difference": 0.139478485123,
+      "maximum_absolute_score_gap": 0.114603146479,
+      "observed_reversed_order_pairs": 149,
+      "score_gap_maximum": 0.097209288868,
+      "score_gap_minimum": -0.114603146479,
+      "training_oracle_prompt": [
+        "formal",
+        "formal"
+      ],
+      "training_oracle_score": 0.740194536151,
+      "training_regret_of_heldout_oracle": 0.009793030002
+    },
+    {
+      "analytic_uniform_gap_upper_bound": 0.241256871683,
+      "candidate_count": 216,
+      "certified_order_errors": 0,
+      "certified_order_preserving_pairs": 940,
+      "comparable_unordered_pairs": 23220,
+      "exact_gap_oscillation": 0.218541223064,
+      "heldout_oracle_prompt": [
+        "verify",
+        "verify",
+        "verify"
+      ],
+      "heldout_oracle_score": 0.771423622489,
+      "heldout_regret_of_training_oracle": 0.057159463478,
+      "length": 3,
+      "maximum_absolute_regret_difference": 0.142693465694,
+      "maximum_absolute_score_gap": 0.11856197169,
+      "observed_reversed_order_pairs": 5487,
+      "score_gap_maximum": 0.099979251374,
+      "score_gap_minimum": -0.11856197169,
+      "training_oracle_prompt": [
+        "formal",
+        "formal",
+        "formal"
+      ],
+      "training_oracle_score": 0.747292128484,
+      "training_regret_of_heldout_oracle": 0.011684156051
+    },
+    {
+      "analytic_uniform_gap_upper_bound": 0.252223093123,
+      "candidate_count": 1296,
+      "certified_order_errors": 0,
+      "certified_order_preserving_pairs": 14374,
+      "comparable_unordered_pairs": 839145,
+      "exact_gap_oscillation": 0.224927787868,
+      "heldout_oracle_prompt": [
+        "verify",
+        "verify",
+        "verify",
+        "verify"
+      ],
+      "heldout_oracle_score": 0.777275537428,
+      "heldout_regret_of_training_oracle": 0.056911370285,
+      "length": 4,
+      "maximum_absolute_regret_difference": 0.145621155643,
+      "maximum_absolute_score_gap": 0.122341249537,
+      "observed_reversed_order_pairs": 205554,
+      "score_gap_maximum": 0.102586538331,
+      "score_gap_minimum": -0.122341249537,
+      "training_oracle_prompt": [
+        "formal",
+        "formal",
+        "formal",
+        "formal"
+      ],
+      "training_oracle_score": 0.753995631322,
+      "training_regret_of_heldout_oracle": 0.013636681474
+    }
+  ],
+  "limitations": "The two target sets are hand-picked, fixed and not iid samples from real-world tasks. Certificates are for these enumerated prompts and this logistic surrogate only. Not evidence of language-model prompt generalization.",
+  "schema_version": 1,
+  "target_pairing_mean_euclidean_distance": 0.275097422828
+}
