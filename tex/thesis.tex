@@ -297,6 +297,8 @@ To complement method-wise means, the two algorithms are compared at identical le
 \input{referee_interpretation.tex}
 \input{independent_referee.tex}
 
+\input{target_transfer_theorem.tex}
+
 \chapter{MATLAB Visualization and Research Audit}
 \section{Purpose and evidentiary scope}
 The numerical experiment is implemented in Python, while its figures are specified independently in a MATLAB script to support inspection with standard mathematical engineering tools. The shared interchange file \texttt{matlab/synthetic\_summary.csv} contains twelve rows, one per length and evaluation-budget configuration. Each row retains the exact oracle score, aggregate development and held-out surrogate scores, mean regrets, optimum-hit counts and paired-seed summaries. Plotting is deliberately separated from the optimizer so changes in charting cannot alter the search procedure.
@@ -379,7 +381,7 @@ The decision variable for a fixed-length textual prompt is a tuple in a Cartesia
 The project derives the candidate count $N^m$, explicit surrogate gradients, a Lipschitz bound, enumeration complexity, the exact random-optimum probability and expected-best formula. The executable tests check representative numerical consequences. These are formal or computational facts under stated definitions, not empirical laws of language-model behavior.
 
 \section{Answer to RQ3}
-Under the fixed six-symbol surrogate, coordinate search achieves lower mean training regret than uniform random search in the reported three-token, thirty-six-evaluation condition. Both methods were given the same number of score calls, exact oracles were available because the space was small. The small target vectors, smooth logistic objective, greedy neighborhood and seeded restarts all shape the result. Performance on a different surrogate or task cannot be inferred without new data.
+Under the fixed six-symbol surrogate, coordinate search achieves lower mean training regret than uniform random search in the reported three-token, thirty-six-evaluation condition. Both methods were given the same number of score calls, exact oracles were available because the space was small. The small target vectors, smooth logistic objective, greedy neighborhood and seeded restarts all shape the result. Performance on a different surrogate or task cannot be inferred without new data. The exact fixed-target transfer audit also establishes that the development optimum does not maximize the separate held-out surrogate, and quantifies ranking reversals by enumeration. This is a result about two fixed objectives, not a statistical generalization result.
 
 \section{Answer to RQ4}
 Real-model conclusions require task-aligned, licensed data, held-out sets, versioned models, exact prompt definitions, repeated measurements, matched search budgets, failure analyses, and uncertainty appropriate to the experimental design. The offline evaluation interface and prospective protocol specify these requirements but do not satisfy them on their own.

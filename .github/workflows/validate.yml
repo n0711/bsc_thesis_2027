@@ -62,6 +62,7 @@ jobs:
           python3 src/paired_analysis.py
           python3 src/gradient_audit.py
           python3 src/landscape_audit.py
+          python3 src/target_transfer_audit.py
 
       - name: Verify generated evidence is committed
         run: |
@@ -72,7 +73,8 @@ jobs:
             tex/paired_results.tex \
             tex/gradient_moves.tex \
             tex/coordinate_landscape.tex \
-            tex/independent_referee.tex
+            tex/independent_referee.tex \
+            tex/target_transfer_audit.tex
 
       - name: Build dissertation with XeLaTeX
         working-directory: tex
