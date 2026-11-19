@@ -94,7 +94,7 @@ Implemented a local Ollama pilot runner, fixed two-task schemas,
 manifest hashes for raw dataset and disjoint development/test split
 records, model digest validation, strict loopback-only inference, and
 paired prediction exports compatible with existing offline scoring.
-Thirteen new unit tests exercise its logic with in-memory model
+Fifteen new unit tests exercise its logic with in-memory model
 responses and deliberately corrupted fixtures. This does NOT
 constitute an observed model benchmark.
 
