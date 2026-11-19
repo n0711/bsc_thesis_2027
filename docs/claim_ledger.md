@@ -38,3 +38,7 @@ A review must separately check (a) the Hessian derivation, (b) that the fixed
 vectors are the intended benchmark, (c) the implementation's exact directed
 neighborhood and numerical tolerance, and (d) whether conclusions are correctly
 restricted to the synthetic benchmark. Independent review is pending.
+
+| R1 | All 1,200 saved observations and 12 aggregates reconcile with recomputation from selected tokens. | `src/independent_referee.py`, `results/runs.csv`, `results/summary.json` | `tests/test_independent_referee.py` and CI audit report | Shared specified scorer is reused, so this does not independently validate the objective itself |
+| R2 | Positive mean development advantage in 12/12 conditions, positive mean held-out advantage in only 5/12. | `results/runs.csv`, `tex/independent_referee.tex` | Re-scored, paired by length, budget and seed in `src/independent_referee.py` | Only fixed synthetic development and held-out targets |
+| R3 | The twelve training-score sign tests have exploratory Holm-adjusted values below 0.05. | `tex/independent_referee.tex`, `src/independent_referee.py` | Exact binomial sign tests and step-down adjustment tested against reference examples | Not evidence of an advantage across independently sampled real tasks; no preregistered claim |
