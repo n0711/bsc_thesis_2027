@@ -29,6 +29,17 @@ jobs:
       - name: Run unit tests
         run: python3 -m unittest discover -s tests -v
 
+      - name: Independently verify finite-step Taylor certificates
+        run: python3 src/taylor_certificate.py > taylor_certificate_report.json
+
+      - name: Upload mathematical certification audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: taylor-certificates-synthetic
+          path: taylor_certificate_report.json
+          if-no-files-found: ignore
+
       - name: Regenerate experiment results, tables, and audits
         run: |
           python3 src/experiment.py
