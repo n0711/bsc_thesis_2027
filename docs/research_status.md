@@ -68,3 +68,22 @@ scorer additionally rejects non-finite latency and empty identifiers.
 Seven unit tests cover the new comparison and validation paths.
 The protocol in `docs/real_model_protocol.md` has been expanded with
 predeclared splits, input provenance and executable referee objections.
+
+## Additional milestone: finite synthetic target-transfer theorem (2026-11-19)
+
+Added analytic uniform target-shift bound for a fixed mean-logistic
+surrogate, finite-objective simple-regret transfer theorem, and sufficient
+pairwise ranking-preservation certificate. The exhaustive audit enumerates
+all 36, 216 and 1296 prompts for lengths 2, 3 and 4, and the unordered
+prompt pairs with distinct development scores. It finds 149, 5,487 and
+205,554 held-out ordering reversals, and 64, 940 and 14,374 certifiably
+preserved orderings. The development optimum differs from the held-out
+optimum at every length, with positive held-out regret of roughly 0.057.
+
+Evidence and source: `src/target_transfer_audit.py`,
+`results/target_transfer_audit.json`,
+`tex/target_transfer_theorem.tex`,
+`tex/target_transfer_audit.tex`,
+`tests/test_target_transfer_audit.py`. CI will regenerate
+and compare outputs. There is no real-model inference, sampled task
+distribution, causal claim, or independent peer review.
