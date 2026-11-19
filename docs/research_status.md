@@ -36,3 +36,22 @@ certificate audit and uploads the JSON report. These are author-side
 verification steps and not independent peer review, external task
 generalization or a real-model benchmark. Supervisor review and CI
 completion must be checked separately.
+
+## Additional milestone: executable statistical referee (2026-11-19)
+
+A separate read-only reviewer now rescored all 1,200 committed synthetic
+candidate prompts, checked the 12-condition dataset for duplicated keys,
+score-call accounting, oracle regret, mean-score aggregates and paired
+sign-test summaries, and applied Holm's procedure to the twelve
+development-score sign tests. All 12 exploratory Holm-adjusted values are
+below 0.05, but **only 5 of 12 configurations have a positive held-out
+mean difference**, despite all 12 having positive development differences.
+
+Eight new regression tests deliberately alter stored scores, p-values,
+row identity and call budgets to ensure the referee raises errors.
+New files: `src/independent_referee.py`,
+`tests/test_independent_referee.py`,
+`tex/independent_referee.tex`, `tex/referee_interpretation.tex`.
+The peer-referee principle is methodologically inspired by *A Society
+of AI Scientists*, not a source of either mathematical or numerical
+findings. No external models were queried.
