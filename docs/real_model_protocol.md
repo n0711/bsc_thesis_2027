@@ -104,5 +104,29 @@ https://www.alphaxiv.org/abs/2611.society-ai-scientists).
 The paper is a methodology reference only. The dissertation's
 Taylor guarantee remains confined to the fixed logistic surrogate.
 
-**Status: proposed, not executed. Supervisor approval, permitted datasets,
+**Status: protocol and local pilot harness drafted, not executed. Supervisor approval, permitted datasets,
 frozen test protocol and actual model runs remain outstanding.**
+
+## Stage D - First local-model pilot harness (software ready, NOT EXECUTED)
+
+`src/local_model_pilot.py` now implements protocol `freeze`, `verify`
+and locally restricted `run` operations. The frozen manifest commits
+the dataset bytes, each split, two prompt bodies, the exact local
+Ollama model digest, task schemas and decoding settings with SHA-256.
+The runner uses Ollama's loopback `/api/generate` interface and
+exports `predictions.jsonl`, grouped scores, paired comparisons and
+a run provenance file. It aborts on missing model identity, token
+counts, incomplete response or changed manifest.
+
+**No real-model runs have been carried out.** All new CI tests use an
+injected in-memory response transport, tagged explicitly as
+`mock_transport_fixture_not_real_model`. The manifest and tests do
+not demonstrate that the held-out set was never viewed, that the
+candidate was genuinely selected by coordinate search or that
+development optimization costs were equal. These must be documented
+and independently checked before any inferential use.
+
+See `docs/local_model_pilot.md` for complete execution commands,
+required dataset/license checks and remaining supervisor decisions.
+This is a pilot execution scaffold, not a complete comparison of
+real-model random and coordinate search.
