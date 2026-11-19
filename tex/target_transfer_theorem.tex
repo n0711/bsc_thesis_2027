@@ -1,0 +1,102 @@
+\section{Certified transfer across two fixed synthetic objectives}
+\label{sec:target-transfer}
+The earlier experiments compare scores from two manually selected sets of
+two-dimensional target vectors. Here we study \emph{fixed-target transfer},
+not statistical generalization to independently sampled tasks. For
+prompts $p$ in the finite space $P_m$, let $F(p)=J_T(p)$ denote the
+development objective and $G(p)=J_H(p)$ the held-out synthetic objective.
+Define the signed shift $g(p)=G(p)-F(p)$ and its finite-space oscillation
+\[
+\Omega_m=\max_{p\in P_m}g(p)-\min_{p\in P_m}g(p).
+\]
+Both maxima and minima are computed by complete enumeration of the same
+small spaces used in the existing oracle.
+
+\begin{proposition}[Finite-objective transfer of simple regret]
+\label{prop:target-transfer}
+For any nonempty finite candidate set $P_m$, define
+$R_F(p)=\max_{q\in P_m}F(q)-F(p)$, and define $R_G$ analogously.
+Then for every $p\in P_m$,
+\begin{equation}
+ |R_G(p)-R_F(p)|\leq\Omega_m.
+ \label{eq:regret-transfer}
+\end{equation}
+Furthermore, if $F(p)-F(q)>\Omega_m$ for two candidates, then $G(p)>G(q)$.
+\end{proposition}
+\begin{proof}
+For any $p$,
+\[
+\begin{split}
+R_G(p)
+ &=\max_q[F(q)+g(q)]-F(p)-g(p)\\
+ &\leq \max_qF(q)-F(p)+\max_qg(q)-\min_qg(q)\\
+ &= R_F(p)+\Omega_m.
+\end{split}
+\]
+Exchanging $F$ and $G$ changes $g$ to $-g$, which has the same
+oscillation, and yields the reverse inequality. For the ordering claim,
+\[
+ G(p)-G(q)
+ =F(p)-F(q)+g(p)-g(q)
+ \geq F(p)-F(q)-\Omega_m>0.
+\]
+No convexity assumption or gradient calculation is required.
+\end{proof}
+
+The previous result uses the enumerated gap. An independent
+\emph{analytic upper bound} follows from the logistic link. Let $T$
+and $H$ each contain $K$ vectors. Since
+$|\sigma'(z)|\leq1/4$, for any permutation $\pi$ of the indices,
+\[
+ |J_T(x)-J_H(x)|
+ \leq\frac{3}{4K}\|x\|_2
+       \sum_{j=1}^K\|u_j-v_{\pi(j)}\|_2.
+\]
+Choose the permutation with smallest mean vector distance
+$D(T,H)=\min_\pi K^{-1}\sum_j\|u_j-v_{\pi(j)}\|_2$.
+The embedding definition in Equation~\eqref{eq:embedding} implies
+\[
+ \|x(p)\|_2\leq
+ R_m=\frac{1}{m}\sum_{i=1}^m(1+0.1(i-1))
+                  \max_{t\in\Vocab}\|E(t)\|_2.
+\]
+Consequently, for every length-$m$ prompt,
+\begin{equation}
+ |g(p)|\leq\frac34R_mD(T,H),\qquad
+ \Omega_m\leq\frac32R_mD(T,H).
+ \label{eq:target-shift-analytic}
+\end{equation}
+The permutation minimizes an \emph{upper bound}, not the observed score
+discrepancy, and the vector pairing is an analytical device rather than
+an empirical semantic matching claim.
+
+\input{target_transfer_audit.tex}
+
+The development optimum is the repeated abstract token label
+\texttt{formal}, whereas the held-out optimum is the repeated label
+\texttt{verify}, at each enumerated length. At lengths two, three and
+four, the held-out regret of the development optimum is approximately
+$0.057181$, $0.057159$ and $0.056911$ respectively. The labels are
+arbitrary names of fixed vectors, not evidence that either English
+word is an effective instruction for real LLMs.
+
+Among pairs with distinct development scores, the held-out objective
+reverses $149$, $5,487$ and $205,554$ pairwise rankings for the three
+lengths. The sufficient ordering certificate preserves $64$, $940$
+and $14,374$ pairwise orderings respectively, with no observed
+certificate failures. A ranking not meeting the sufficient condition
+is \emph{undecided} by the theorem, not necessarily reversed.
+
+\paragraph{Reproducibility and numerical scope.}
+Running \texttt{python3 src/target\_transfer\_audit.py} regenerates
+\texttt{results/target\_transfer\_audit.json} and
+\texttt{tex/target\_transfer\_audit.tex}. All $6^m$ candidates and
+their unordered pairs are checked, using binary floating-point
+evaluation and an improvement threshold of $10^{-12}$, rather than
+exact symbolic evaluation of sigmoid values. The propositions are
+analytic, while individual counts depend on the fixed benchmark
+and numerical tolerance. This is a negative-result-aware,
+claim-to-code audit following the methodological spirit of
+\emph{A Society of AI Scientists}~\cite{ahmad2026}, not a result
+borrowed from that study. These observations cannot support
+real-model transfer claims without a separately controlled study.
