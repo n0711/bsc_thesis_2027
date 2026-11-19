@@ -119,6 +119,16 @@ def read_dataset(path):
     return rows, digest(raw)
 
 
+def _unique_json_keys(pairs):
+    """Reject ambiguous duplicate fields rather than silently using last key."""
+    result = {}
+    for name, value in pairs:
+        if name in result:
+            raise ValueError("duplicate JSON object key")
+        result[name] = value
+    return result
+
+
 def normalize(task_spec, response):
     """Return canonical answer and task-validity, without guessing meaning."""
     require(isinstance(response, str), "response must be a string")
@@ -126,7 +136,7 @@ def normalize(task_spec, response):
     if task_spec["kind"] == "classification":
         return raw, raw in task_spec["labels"]
     try:
-        result = json.loads(raw)
+        result = json.loads(raw, object_pairs_hook=_unique_json_keys)
     except (json.JSONDecodeError, ValueError):
         return raw, False
     if (not isinstance(result, dict) or set(result) != {"value"} or
@@ -221,13 +231,23 @@ def validate_endpoint(endpoint):
     return "http://127.0.0.1:11434"
 
 
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """No 3xx hops, especially off-loopback while submitting test inputs."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
 def http_json(url, payload=None, timeout=120):
     body = None if payload is None else canonical(payload).encode("utf-8")
     request = urllib.request.Request(
         url, data=body, headers={"Content-Type": "application/json"},
         method="POST" if body is not None else "GET")
     try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
+        # Deliberately ignore environment HTTP proxies and deny redirects.
+        opener = urllib.request.build_opener(
+            urllib.request.ProxyHandler({}), _NoRedirect())
+        with opener.open(request, timeout=timeout) as response:
             return json.loads(response.read().decode("utf-8"))
     except (urllib.error.URLError, UnicodeError, json.JSONDecodeError) as exc:
         raise RuntimeError(f"local Ollama request failed: {type(exc).__name__}") from exc
