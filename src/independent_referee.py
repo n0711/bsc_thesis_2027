@@ -215,10 +215,43 @@ def audit(rows, summary, paired):
     }
 
 
+def render_latex(report):
+    """Build the manuscript's statistical audit table from verified raw rows."""
+    lines = [
+        r"\begin{table}[htbp]",
+        r"\centering\footnotesize",
+        r"\caption{Executable referee audit of twelve synthetic configurations. "
+        r"Each mean is coordinate minus random over 50 indexed seeds. "
+        r"Holm values adjust the exploratory training-score sign tests.}",
+        r"\label{tab:independent-referee}",
+        r"\begin{tabular}{rrrrr}",
+        r"\toprule",
+        r"$m$ & $B$ & Train difference & Held-out difference & Holm $p$ \\",
+        r"\midrule",
+    ]
+    for r in report["configurations"]:
+        lines.append(
+            f'{r["length"]} & {r["budget"]} & '
+            f'{r["train_coordinate_minus_random"]:+.6f} & '
+            f'{r["heldout_coordinate_minus_random"]:+.6f} & '
+            + r"\texttt{"
+            + f'{r["train_sign_test_p_holm_exploratory"]:.2e}'
+            + r"}\\"
+        )
+    lines += [
+        r"\bottomrule",
+        r"\end{tabular}",
+        r"\end{table}",
+        "",
+    ]
+    return "\n".join(lines)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path,
                         default=Path(__file__).resolve().parents[1])
+    parser.add_argument("--out-tex", type=Path, default=None)
     args = parser.parse_args()
     root = args.root
     with (root / "results/runs.csv").open(newline="", encoding="utf-8") as stream:
@@ -229,8 +262,10 @@ def main():
     paired = json.loads((root / "results/paired_analysis.json").read_text(
         encoding="utf-8"
     ))
-    print(json.dumps(audit(rows, summary, paired),
-                     indent=2, sort_keys=True, allow_nan=False))
+    report = audit(rows, summary, paired)
+    if args.out_tex is not None:
+        args.out_tex.write_text(render_latex(report), encoding="utf-8")
+    print(json.dumps(report, indent=2, sort_keys=True, allow_nan=False))
 
 
 if __name__ == "__main__":
