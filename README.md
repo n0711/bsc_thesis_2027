@@ -10,7 +10,7 @@ This project extends the author's **submitted October 2026 theoretical article**
 - Exact finite-space optimization (6-symbol alphabet, prompt lengths 2/3/4).
 - Equal-budget comparison: random search and restarting first-improvement coordinate search, 12/24/36/72 score evaluations, 50 seeds each.
 - 1,200 synthetic observations, JSON/CSV evidence, exact random-search hit probabilities and expected best-score formula.
-- 31 local Python unit tests including gradient ranking, discrete stopping states, finite differences and strict evaluation accounting.
+- 39 local Python unit tests including gradient ranking, discrete stopping states, finite differences and strict evaluation accounting.
 - Offline output scorer for **future externally supplied actual model predictions**, does not perform model inference.
 
 ## Reproduction
@@ -25,6 +25,7 @@ python3 src/paired_analysis.py
 python3 src/gradient_audit.py
 python3 src/landscape_audit.py
 python3 src/taylor_certificate.py
+python3 src/independent_referee.py --out-tex tex/independent_referee.tex
 cd tex
 xelatex -halt-on-error -interaction=nonstopmode thesis.tex
 xelatex -halt-on-error -interaction=nonstopmode thesis.tex
@@ -42,7 +43,7 @@ The tested surrogate is **not an LLM**. Scores represent probabilities from fixe
 
 ## Paired-seed analysis milestone
 
-Run `python3 src/paired_analysis.py` after `python3 src/experiment.py`. The gradient and landscape audit scripts also emit per-state JSON evidence under `results/` and matching LaTeX tables in `tex/`; their outputs use stable ordering and normalized numeric precision. The 31-test suite additionally checks the exact second-order Taylor certificate and off-grid inequalities. These analyses operate only on the synthetic objective; the paired-seed sign-test p-values are unadjusted across twelve configurations and must not be interpreted as real-LLM evidence.
+Run `python3 src/paired_analysis.py` after `python3 src/experiment.py`. The gradient and landscape audit scripts also emit per-state JSON evidence under `results/` and matching LaTeX tables in `tex/`; their outputs use stable ordering and normalized numeric precision. The 39-test suite additionally checks the exact second-order Taylor certificate and off-grid inequalities. These analyses operate only on the synthetic objective; the paired-seed sign-test p-values are unadjusted across twelve configurations and must not be interpreted as real-LLM evidence.
 
 ## January 2027 preliminary presentation and MATLAB figures
 
@@ -73,3 +74,23 @@ and limitation mappings. The cited preprint is methodological inspiration,
 not a source for the Taylor theorem or surrogate measurements. The
 certificate **does not** apply to deployed LLMs without new assumptions
 and evidence. Supervisor review remains pending.
+
+## Independent executable referee (2026-11-19)
+
+The read-only `src/independent_referee.py` recomputes **all 1,200 committed
+synthetic observations**, including development and held-out scores,
+oracle regret, optimal-hit flags, equal budgets, paired sign counts, and
+aggregate summaries. It detects duplicate observations and modified
+reported values. Holm-adjusted exploratory sign-test p-values are
+computed for the family of twelve development-score comparisons.
+
+**Key limitation:** coordinate search has higher mean development score
+in all twelve conditions, but higher mean held-out score in only five
+conditions. These are fixed hand-chosen synthetic vectors and seeded
+algorithm runs, not real LLM outcomes, independent tasks or proof of
+prompt-search generalization.
+
+Run `python3 src/independent_referee.py --out-tex tex/independent_referee.tex`
+to reproduce the independent audit JSON and the dissertation's statistical
+table. CI verifies committed table parity. Failure modes are covered by
+the separate test file `tests/test_independent_referee.py`.
