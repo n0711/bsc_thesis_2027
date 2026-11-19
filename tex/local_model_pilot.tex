@@ -1,0 +1,59 @@
+\section{Frozen local-model pilot and evidence provenance}
+\label{sec:local-model-pilot}
+A standard-library Python harness, \texttt{src/local\_model\_pilot.py},
+now provides an executable \emph{future} evaluation path using a local
+Ollama model. It is not part of the completed synthetic experiment.
+No inference outputs have been obtained from it at the time of this
+research milestone. The implementation does not optimize prompts and
+does not claim that a candidate labelled \texttt{coordinate\_selected}
+was produced by a budget-matched coordinate-search run. Establishing
+that provenance requires a separately retained development-only search
+record.
+
+The prospective pilot fixes two tasks: closed-label classification and
+single-field JSON extraction. For each task, disjoint development and
+test identifiers are supplied by an external, licensed dataset. Every
+input row is linked to an exact string reference and a predetermined
+schema. Prompt responses are normalized by the same deterministic
+rules across both methods, and are evaluated on matched example IDs.
+The primary per-example endpoint is
+\begin{equation}
+C_{ai}=
+\mathbb{I}\{\text{valid output of method }a
+\;\land\;\hat y_{ai}=y_i\},\qquad
+\widehat\Delta=\frac{1}{n}\sum_{i=1}^{n}(C_{si}-C_{bi}).
+\label{eq:local-pilot-paired}
+\end{equation}
+Here $b$ is the frozen author-written prompt, $s$ is a separately
+selected candidate, and $\widehat\Delta$ estimates a paired
+\emph{sample} difference only if actual evaluation records exist.
+The fixed synthetic sigmoid score is unrelated to $C_{ai}$.
+
+The freeze command hashes the raw dataset, separate development/test
+record partitions, and both complete prompt bodies. It preserves a
+self-hashed protocol manifest with the precise model tag and model
+digest, task schemas, decoding seed, temperature and response budget.
+Before an actual inference call the runtime checks the installed
+local model digest, refuses other network endpoints, and validates
+the returned model identity, completion flag and token counts. A
+missing or failed response prevents a partial dataset from being
+reported as a completed paired evaluation. The output would include
+per-example predictions, token and latency usage, task-wise scores,
+paired comparisons and a separate provenance record.
+
+A digest proves file equality with a committed manifest, \emph{not}
+that an evaluator never viewed the test labels, that the declared
+model produced the outputs, or that two prompts used equal development
+search budgets. Those issues require separately preserved run logs and
+independent review. The fixture tests replace network requests with
+in-memory responses, explicitly tagged as \texttt{mock\_transport\_fixture\_not\_real\_model}.
+They do not establish LLM performance, and the local runner's
+mathematical validity does not follow from the surrogate gradient
+or regret-transfer theorems.
+
+The executable preparation and local-run commands are documented in
+\texttt{docs/local\_model\_pilot.md}. Before any confirmatory
+experiment, the supervisor must approve dataset selection, split
+provenance, search-budget accounting, method selection and the intended
+statistical analysis. A pilot evaluation without these controls can
+be reported only as exploratory.
