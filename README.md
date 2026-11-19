@@ -10,7 +10,7 @@ This project extends the author's **submitted October 2026 theoretical article**
 - Exact finite-space optimization (6-symbol alphabet, prompt lengths 2/3/4).
 - Equal-budget comparison: random search and restarting first-improvement coordinate search, 12/24/36/72 score evaluations, 50 seeds each.
 - 1,200 synthetic observations, JSON/CSV evidence, exact random-search hit probabilities and expected best-score formula.
-- 39 local Python unit tests including gradient ranking, discrete stopping states, finite differences and strict evaluation accounting.
+- 46 local Python unit tests including gradient ranking, discrete stopping states, finite differences and strict evaluation accounting.
 - Offline output scorer for **future externally supplied actual model predictions**, does not perform model inference.
 
 ## Reproduction
@@ -43,7 +43,7 @@ The tested surrogate is **not an LLM**. Scores represent probabilities from fixe
 
 ## Paired-seed analysis milestone
 
-Run `python3 src/paired_analysis.py` after `python3 src/experiment.py`. The gradient and landscape audit scripts also emit per-state JSON evidence under `results/` and matching LaTeX tables in `tex/`; their outputs use stable ordering and normalized numeric precision. The 39-test suite additionally checks the exact second-order Taylor certificate and off-grid inequalities. These analyses operate only on the synthetic objective; the paired-seed sign-test p-values are unadjusted across twelve configurations and must not be interpreted as real-LLM evidence.
+Run `python3 src/paired_analysis.py` after `python3 src/experiment.py`. The gradient and landscape audit scripts also emit per-state JSON evidence under `results/` and matching LaTeX tables in `tex/`; their outputs use stable ordering and normalized numeric precision. The 46-test suite additionally checks the exact second-order Taylor certificate and off-grid inequalities. These analyses operate only on the synthetic objective; the paired-seed sign-test p-values are unadjusted across twelve configurations and must not be interpreted as real-LLM evidence.
 
 ## January 2027 preliminary presentation and MATLAB figures
 
@@ -94,3 +94,18 @@ Run `python3 src/independent_referee.py --out-tex tex/independent_referee.tex`
 to reproduce the independent audit JSON and the dissertation's statistical
 table. CI verifies committed table parity. Failure modes are covered by
 the separate test file `tests/test_independent_referee.py`.
+
+## Paired held-out metrics interface (NOT EXECUTED)
+
+For a future licensed real-model study, `src/compare_heldout.py` now
+compares frozen baseline and candidate prompts only after validating that
+both share the same model, task, example IDs and reference answers.
+It separately reports validity-adjusted exact match, plain exact match,
+invalid output rate, input and output tokens, latency and exploratory
+discordant-pair counts. `src/score_outputs.py` rejects nonfinite latency
+and missing identifiers. Seven regression tests use invented unit-test
+fixtures, **not actual model observations**.
+
+The complete proposed protocol and commands are at
+`docs/real_model_protocol.md`. No test performance has been measured on
+a real LLM.
