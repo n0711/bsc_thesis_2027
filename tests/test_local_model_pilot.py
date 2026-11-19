@@ -259,7 +259,7 @@ class LocalModelPilotTests(unittest.TestCase):
             spec_file = directory / "spec.json"
             manifest = directory / "frozen.json"
             dataset.write_text("".join(
-                canonical(row) + "\\n" for row in self.rows
+                canonical(row) + "\n" for row in self.rows
             ), encoding="utf-8")
             spec_file.write_text(
                 json.dumps(self.spec), encoding="utf-8")
