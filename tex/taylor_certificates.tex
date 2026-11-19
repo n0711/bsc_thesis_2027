@@ -64,9 +64,10 @@ A move is \emph{uncertified} when the global interval intersects
 the threshold range. This is an inconclusive verdict, not an error.
 
 \begin{center}
+\small
 \begin{tabular}{rrrrrr}
 \toprule
-$m$ & Moves & Certified rise & Certified fall & Uncertified & First-order false positives\\
+$m$ & Moves & Cert. rise & Cert. fall & Uncert. & False $+$\\
 \midrule
 2 & 360 & 101 & 79 & 180 & 20\\
 3 & 3,240 & 1,081 & 906 & 1,253 & 133\\
@@ -76,6 +77,8 @@ Total & 29,520 & 10,479 & 9,103 & 9,938 & 1,004\\
 \bottomrule
 \end{tabular}
 \end{center}
+Here \emph{False $+$} denotes a positive first-order gradient prediction
+for a move that did not strictly improve the score, not an invalid certificate.
 
 The certificates cover $19,582/29,520=66.33\%$ of
 enumerated moves, with zero sign violations in the exhaustive
