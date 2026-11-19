@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+\centering\footnotesize
+\caption{Executable referee audit of twelve synthetic configurations. Each mean is coordinate minus random over 50 indexed seeds. Holm values adjust the exploratory training-score sign tests.}
+\label{tab:independent-referee}
+\begin{tabular}{rrrrr}
+\toprule
+$m$ & $B$ & Train difference & Held-out difference & Holm $p$ \\
+\midrule
+2 & 12 & +0.005116 & -0.001255 & \texttt{3.61e-04}\\
+2 & 24 & +0.001342 & -0.000676 & \texttt{1.73e-06}\\
+2 & 36 & +0.000815 & -0.010027 & \texttt{1.73e-06}\\
+2 & 72 & +0.000373 & -0.006719 & \texttt{1.95e-03}\\
+3 & 12 & +0.005362 & -0.000185 & \texttt{4.00e-02}\\
+3 & 24 & +0.003504 & +0.001172 & \texttt{1.86e-06}\\
+3 & 36 & +0.001256 & -0.005040 & \texttt{2.21e-07}\\
+3 & 72 & +0.000902 & -0.007511 & \texttt{3.12e-09}\\
+4 & 12 & +0.015282 & +0.005548 & \texttt{3.61e-04}\\
+4 & 24 & +0.009933 & +0.011253 & \texttt{4.46e-09}\\
+4 & 36 & +0.004676 & +0.009565 & \texttt{2.81e-05}\\
+4 & 72 & +0.001794 & +0.000874 & \texttt{3.69e-10}\\
+\bottomrule
+\end{tabular}
+\end{table}

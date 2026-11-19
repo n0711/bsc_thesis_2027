@@ -293,6 +293,9 @@ To complement method-wise means, the two algorithms are compared at identical le
 
 \input{coordinate_landscape.tex}
 \input{gradient_moves.tex}
+\input{taylor_certificates.tex}
+\input{referee_interpretation.tex}
+\input{independent_referee.tex}
 
 \chapter{MATLAB Visualization and Research Audit}
 \section{Purpose and evidentiary scope}
@@ -355,7 +358,15 @@ Compare at least a fixed author-written instruction, uniform random candidate se
 For classification or exact-format extraction, choose one primary score before evaluating. Exact match is defined by $\ind[\hat y_i=y_i]$ under pre-declared normalization, validity rate is $n^{-1}\sum_i\ind[C(\hat y_i)=1]$. Accuracy should not be used as a synonym for a surrogate probability. When examples are paired across prompt methods, use paired intervals or an appropriate paired resampling procedure. Report per-task scores and failure categories, an aggregate alone may conceal a method that fails on one task.
 
 \section{Offline results evaluator}
-\texttt{src/score\_outputs.py} accepts JSON Lines records that must contain a task ID, example ID, model identifier, prompt identifier, reference string, prediction string, schema-validity Boolean, token counts and latency. It calculates grouped exact-match rates, validity rates and mean usage. It \emph{does not} call a model, fabricate observations, verify the provenance of externally supplied records or assert a result without input data. That boundary is intentional. A later evaluation should preserve raw response files, prompt templates, hashes, model parameters and a signed run manifest.
+\texttt{src/score\_outputs.py} accepts JSON Lines records that must contain a task ID, example ID, model identifier, prompt identifier, reference string, prediction string, schema-validity Boolean, token counts and latency. It calculates grouped exact-match rates, validity rates and mean usage. The additional
+\texttt{src/compare\_heldout.py} enforces one-to-one matching of
+identical model, task and example identifiers between a frozen baseline
+and a selected candidate. It rejects missing examples and inconsistent
+reference outputs, and computes paired validity-adjusted exact-match
+differences, schema-validity differences, token and latency differences,
+and a conditional exact discordance test. Comparisons use example IDs as
+pairs, not optimizer seed IDs. These are analysis interfaces with
+unit-test fixtures, not observed model evaluation results. It \emph{does not} call a model, fabricate observations, verify the provenance of externally supplied records or assert a result without input data. That boundary is intentional. A later evaluation should preserve raw response files, prompt templates, hashes, model parameters and a signed run manifest.
 
 \section{Ethics and reproducibility checks}
 Review dataset licenses, use non-sensitive input data, avoid including private prompts or personal records in a public repository, and consult the supervisor on ethics requirements before collecting human judgments. Reproducibility means another researcher can obtain the same software behavior and inspect raw evidence, it does not imply access to a proprietary model version is guaranteed indefinitely.
@@ -450,6 +461,7 @@ Supervisor and academic acceptance&\textbf{Not confirmed}&Document review and fi
 \bibitem{zhao2021} Zhao, Z., Wallace, E., Feng, S., Klein, D., and Singh, S. (2021). Calibrate Before Use: Improving Few-Shot Performance of Language Models. \emph{ICML}, 12697--12706.
 \bibitem{zhou2023} Zhou, Y., et al. (2023). Large Language Models Are Human-Level Prompt Engineers. \emph{ICLR}.
 \bibitem{liu2023} Liu, P., et al. (2023). Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing. \emph{ACM Computing Surveys}, 55(9). \href{https://doi.org/10.1145/3560815}{doi:10.1145/3560815}.
+\bibitem{ahmad2026} Ahmad, R., et al. (2026). A Society of AI Scientists. \emph{alphaXiv} preprint, submitted November 19, 2026. \href{https://www.alphaxiv.org/abs/2611.society-ai-scientists}{alphaXiv:2611.society-ai-scientists}.
 \bibitem{nadiotis2026} Nadiotis, C. (2026). \emph{Prompt Engineering as a Discrete-Continuous Optimization Problem: A Mathematical Perspective Using Discrete Mathematics and Calculus}. Author-provided short article, submitted in October 2026, publication status not independently verified.
 \end{thebibliography}
 \end{document}

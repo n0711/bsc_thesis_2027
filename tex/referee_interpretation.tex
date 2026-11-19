@@ -1,0 +1,49 @@
+\section{Executable referee audit, multiplicity and held-out sensitivity}
+\label{sec:independent-referee}
+The original paired-seed comparison reports twelve exploratory two-sided
+sign-test $p$-values without multiplicity adjustment. We now use a read-only
+second evaluator to reconstruct all 1,200 recorded prompt scores from the
+selected token tuples, the frozen two-dimensional embeddings and the
+original development and held-out synthetic objectives. It independently
+checks row keys, exact score-call budgets, finite-space oracle regret,
+optimal-hit flags, summary means and paired sign-test counts against
+the committed evidence files. These checks are not an independent
+implementation of the objective, since both analyses share the same
+specified score formula.
+
+To make the multiple-testing issue explicit, order the twelve exploratory
+$p$-values as $p_{(1)}\leq\cdots\leq p_{(12)}$. Their Holm-adjusted values are
+\begin{equation}
+p^{\mathrm{Holm}}_{(i)}=
+\min\left\{1,\max_{1\leq j\leq i}(13-j)p_{(j)}\right\}.
+\label{eq:holm}
+\end{equation}
+This is a familywise adjustment for the \emph{twelve reported training-score
+sign tests}. It does not change their observational design. All twelve
+adjusted values fall below $0.05$ in this fixed archive. Since each run
+uses a seeded algorithm on the \emph{same} objective, this statement does
+not imply population-level significance across real prompts, tasks or
+language models. Paired seed labels do not imply that the two methods
+consumed identical random choices.
+
+More importantly, every configuration favors coordinate search in
+\emph{mean development score}, but only five of twelve favor it in
+\emph{mean held-out synthetic score}. Seven show a negative held-out
+difference. Thus a reliable advantage under the chosen development
+vectors is insufficient evidence of a consistent advantage on the
+separate, fixed evaluation vectors. This is evidence about the particular
+toy objectives, not a measured LLM generalization gap. The held-out
+comparisons were inspected after the initial experiment and are explicitly
+exploratory rather than pre-registered confirmatory outcomes.
+
+Following the executable-referee principle discussed in
+\emph{A Society of AI Scientists}~\cite{ahmad2026}, the audit also
+deliberately rejects changed score records, duplicate observations,
+budget mismatches and altered stored statistical values in its unit
+tests. The original raw outputs are preserved, and the new reviewer
+reports a failure rather than silently repairing changed data.
+The reproducible command is
+\texttt{python3 src/independent\_referee.py}, optionally with
+\texttt{--out-tex tex/independent\_referee.tex} to regenerate
+Table~\ref{tab:independent-referee}. The CI workflow checks that
+the regenerated table matches the committed version.

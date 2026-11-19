@@ -1,0 +1,102 @@
+\section{Second-order certificates for discrete token replacements}
+\label{sec:taylor-certificates}
+The preceding gradient-ranking audit measures how well a first-order
+direction predicts finite token substitutions. We now distinguish a
+\emph{heuristic} prediction from an \emph{analytically certified} sign
+under the specific synthetic objective in Equation~\eqref{eq:train}.
+This proof concerns the continuous extension of that fixed surrogate,
+not a language model.
+
+\begin{proposition}[Global second-order bound for the logistic surrogate]
+\label{prop:taylor-certificate}
+For a nonempty fixed set of target vectors $T\subset\mathbb R^2$, let
+$F(x)=|T|^{-1}\sum_{u\in T}\sigma(3u^\top x)$ and let
+\[
+L_{\nabla}=\frac{\sqrt{3}}{2|T|}\sum_{u\in T}\|u\|_2^2.
+\]
+For all $x,y\in\mathbb R^2$, setting $d=y-x$ gives
+\begin{equation}
+\left|F(y)-F(x)-\nabla F(x)^\top d\right|
+ \leq \frac{L_{\nabla}}{2}\|d\|_2^2.
+\label{eq:second-order-certificate}
+\end{equation}
+Consequently, if $\nabla F(x)^\top d-
+L_{\nabla}\|d\|_2^2/2>\varepsilon$, the move improves
+the exact surrogate score by more than $\varepsilon$.
+If $\nabla F(x)^\top d+
+L_{\nabla}\|d\|_2^2/2<-\varepsilon$, the move decreases
+the score by more than $\varepsilon$.
+\end{proposition}
+\begin{proof}
+Writing $p=\sigma(z)$, the logistic derivatives are
+$\sigma'(z)=p(1-p)$ and
+$\sigma''(z)=p(1-p)(1-2p)$.
+The extrema of the latter polynomial on $p\in[0,1]$
+occur at $p=(3\pm\sqrt{3})/6$, hence
+$\sup_z|\sigma''(z)|=\sqrt{3}/18$.
+Differentiation yields the Hessian
+\[
+\nabla^2 F(x)=\frac9{|T|}\sum_{u\in T}
+                  \sigma''(3u^\top x)\,uu^\top.
+\]
+Using $\|uu^\top\|_2=\|u\|_2^2$ and the triangle inequality,
+$\|\nabla^2F(x)\|_2\le L_{\nabla}$ globally.
+Taylor's formula with integral remainder along
+$x+td$ therefore gives
+\[
+F(x+d)-F(x)-\nabla F(x)^\top d
+=\int_0^1(1-t)d^\top\nabla^2 F(x+td)d\,dt.
+\]
+Taking absolute values and integrating $1-t$ over $[0,1]$
+proves Equation~\eqref{eq:second-order-certificate}.
+The two sign certificates follow by taking the lower and
+upper endpoints of this interval.
+\end{proof}
+
+For the four committed synthetic development targets,
+$\frac1{|T|}\sum_{u\in T}\|u\|_2^2=0.45$,
+so $L_{\nabla}=0.45\sqrt{3}/2\approx0.389711$ and
+the certified Taylor radius is at most
+$0.194856\|d\|_2^2$.
+We apply the strict threshold $\varepsilon=10^{-12}$
+used by the search implementation to each directed replacement.
+A move is \emph{uncertified} when the global interval intersects
+the threshold range. This is an inconclusive verdict, not an error.
+
+\begin{center}
+\small
+\begin{tabular}{rrrrrr}
+\toprule
+$m$ & Moves & Cert. rise & Cert. fall & Uncert. & False $+$\\
+\midrule
+2 & 360 & 101 & 79 & 180 & 20\\
+3 & 3,240 & 1,081 & 906 & 1,253 & 133\\
+4 & 25,920 & 9,297 & 8,118 & 8,505 & 851\\
+\midrule
+Total & 29,520 & 10,479 & 9,103 & 9,938 & 1,004\\
+\bottomrule
+\end{tabular}
+\end{center}
+Here \emph{False $+$} denotes a positive first-order gradient prediction
+for a move that did not strictly improve the score, not an invalid certificate.
+
+The certificates cover $19,582/29,520=66.33\%$ of
+enumerated moves, with zero sign violations in the exhaustive
+check. The $1,004$ false-positive \emph{first-order predictions}
+are not certified claims: the analytical interval filters those
+unsupported directional predictions. Numerical agreement does not
+establish that a new language-model prompt will improve.
+
+\paragraph{Independent checks and limitations.}
+The standard-library script
+\texttt{python3 src/taylor\_certificate.py}
+recomputes every reported count from the frozen vectors
+and candidate enumeration; \texttt{tests/test\_taylor\_certificate.py}
+also probes the inequality at off-grid points and asserts exact
+enumeration counts. It does not independently verify the chosen
+target vectors, the relevance of the toy model or scientific novelty.
+Inspired by the auditability and peer criticism described for
+communities of AI research agents~\cite{ahmad2026},
+this workflow keeps the proof, computation, tests and limitations
+explicitly linked. The calculus bound itself follows from standard
+Taylor theory, it is not a contribution of that agent study.
