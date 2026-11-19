@@ -32,5 +32,12 @@ class ScoringTests(unittest.TestCase):
         with self.assertRaises(ValueError): summarize([{**RECORD,"output_valid":"true"}])
         with self.assertRaises(ValueError): summarize([{**RECORD,"latency_ms":-1}])
 
+    def test_nonfinite_latency_and_empty_identifiers_rejected(self):
+        for value in (float("nan"), float("inf"), -float("inf")):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                summarize([{**RECORD, "latency_ms": value}])
+        with self.assertRaises(ValueError):
+            summarize([{**RECORD, "id": "  "}])
+
 
 if __name__ == '__main__': unittest.main()
