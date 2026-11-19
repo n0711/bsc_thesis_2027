@@ -10,7 +10,7 @@ This project extends the author's **submitted October 2026 theoretical article**
 - Exact finite-space optimization (6-symbol alphabet, prompt lengths 2/3/4).
 - Equal-budget comparison: random search and restarting first-improvement coordinate search, 12/24/36/72 score evaluations, 50 seeds each.
 - 1,200 synthetic observations, JSON/CSV evidence, exact random-search hit probabilities and expected best-score formula.
-- 46 local Python unit tests including gradient ranking, discrete stopping states, finite differences and strict evaluation accounting.
+- 52 local Python unit tests including gradient ranking, discrete stopping states, finite differences and strict evaluation accounting.
 - Offline output scorer for **future externally supplied actual model predictions**, does not perform model inference.
 
 ## Reproduction
@@ -24,6 +24,7 @@ python3 src/make_tables.py
 python3 src/paired_analysis.py
 python3 src/gradient_audit.py
 python3 src/landscape_audit.py
+python3 src/target_transfer_audit.py
 python3 src/taylor_certificate.py
 python3 src/independent_referee.py --out-tex tex/independent_referee.tex
 cd tex
@@ -43,7 +44,7 @@ The tested surrogate is **not an LLM**. Scores represent probabilities from fixe
 
 ## Paired-seed analysis milestone
 
-Run `python3 src/paired_analysis.py` after `python3 src/experiment.py`. The gradient and landscape audit scripts also emit per-state JSON evidence under `results/` and matching LaTeX tables in `tex/`; their outputs use stable ordering and normalized numeric precision. The 46-test suite additionally checks the exact second-order Taylor certificate and off-grid inequalities. These analyses operate only on the synthetic objective; the paired-seed sign-test p-values are unadjusted across twelve configurations and must not be interpreted as real-LLM evidence.
+Run `python3 src/paired_analysis.py` after `python3 src/experiment.py`. The gradient and landscape audit scripts also emit per-state JSON evidence under `results/` and matching LaTeX tables in `tex/`; their outputs use stable ordering and normalized numeric precision. The 52-test suite additionally checks the exact second-order Taylor certificate and off-grid inequalities. These analyses operate only on the synthetic objective; the paired-seed sign-test p-values are unadjusted across twelve configurations and must not be interpreted as real-LLM evidence.
 
 ## January 2027 preliminary presentation and MATLAB figures
 
@@ -109,3 +110,32 @@ fixtures, **not actual model observations**.
 The complete proposed protocol and commands are at
 `docs/real_model_protocol.md`. No test performance has been measured on
 a real LLM.
+
+## Exact target-shift and transfer-regret theorem (2026-11-19)
+
+The fixed synthetic development objective and held-out objective have
+**different globally optimal token tuples** for all three enumerated lengths:
+repeated `formal` is best on development, repeated `verify` is best
+on the held-out vectors. These are labels for fixed vectors, not tested
+English instructions. The development oracle's held-out regret is
+approximately 0.057181, 0.057159, and 0.056911 for lengths 2, 3, and 4.
+
+The analytical theorem proves, for two finite objectives `F` and `G`,
+that **their simple regrets differ by at most the oscillation of
+`G-F` across the common candidate set**, and that a development
+score gap greater than this oscillation certifies preservation of
+the pairwise ordering under the held-out objective. A second analytic
+bound uses sigmoid Lipschitz continuity and optimal matching of the
+four fixed target vectors. Full enumeration audits 36, 216, and 1,296
+candidates and their pairwise rankings, finding 149, 5,487, and
+205,554 reversed orderings, with no certificate violations.
+
+Reproduce with `python3 src/target_transfer_audit.py`.
+It regenerates `results/target_transfer_audit.json` and
+`tex/target_transfer_audit.tex`. Six tests check input assumptions,
+oracles, bounds, and deterministic output. The theorem and discussion
+are in `tex/target_transfer_theorem.tex`.
+
+**Important limitation:** this is fixed synthetic target-shift analysis,
+not real-model performance, out-of-distribution testing with a sampled
+task population, or an LLM generalization guarantee.
