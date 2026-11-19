@@ -41,7 +41,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Execute independent statistical and claim referee
-        run: python3 src/independent_referee.py > independent_referee_report.json
+        run: python3 src/independent_referee.py --out-tex tex/independent_referee.tex > independent_referee_report.json
 
       - name: Retain independent referee findings
         if: always()
@@ -67,7 +67,8 @@ jobs:
             tex/plot_data.tsv \
             tex/paired_results.tex \
             tex/gradient_moves.tex \
-            tex/coordinate_landscape.tex
+            tex/coordinate_landscape.tex \
+            tex/independent_referee.tex
 
       - name: Build dissertation with XeLaTeX
         working-directory: tex
